@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Osuny Migrator" %></title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} - Osuny Migrator" : "Osuny Migrator" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Osuny Migrator">
@@ -25,7 +25,10 @@
   <body>
     <%= render 'header' %>
     <%= render_breadcrumbs builder: BreadcrumbsOnRailsBuilder %>
-    <%= yield %>
+    <main class="container-fluid">
+      <%= render 'notice' %>
+      <%= yield %>
+    </main>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

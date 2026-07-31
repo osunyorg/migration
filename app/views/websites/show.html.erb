@@ -1,0 +1,13 @@
+<% content_for :title, @website %>
+
+<h1><%= @website %></h1>
+
+<p>
+  <strong>URL: </strong>
+  <%= @website.url %>
+</p>
+
+<div>
+  <%= link_to "Edit", [:edit, @website], class: "btn btn-primary" %>
+  <%= link_to "Destroy", @website, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+</div>
