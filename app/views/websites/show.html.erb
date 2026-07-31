@@ -14,19 +14,45 @@
   <% end %>
 </ul>
 
-<div class="mb-3">
+<div class="mb-4">
   <%= link_to "Edit", [:edit, @website], class: "btn btn-primary" %>
   <%= link_to "Destroy", @website, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>
 
 <h2>Groups (<%= @groups.size %>)</h2>
-
 <%= link_to "Create Group", new_website_group_path(website_id: @website.id), class: "btn btn-primary mb-3" %>
 
-<div class="row" id="groups">
-  <% @groups.each do |group| %>
-    <div class="col-lg-3">
-      <%= render "websites/groups/group", group: group %>
-    </div>
-  <% end %>
-</div>
+<% if @groups.any? %>
+  <div class="row mb-4" id="groups">
+    <% @groups.each do |group| %>
+      <div class="col-lg-3">
+        <%= render "websites/groups/group", group: group %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h2>Pages (<%= @pages.size %>)</h2>
+<%= link_to "Create Page", new_website_page_path(website_id: @website.id), class: "btn btn-primary mb-3" %>
+
+<% if @pages.any? %>
+  <table class="table table-striped" id="pages">
+    <thead>
+      <tr>
+        <th>URL</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pages.each do |page| %>
+        <tr>
+          <td><%= link_to page.url, page %></td>
+          <td>
+            <%= link_to "Edit", [:edit, page, { website_id: @website.id }], class: "btn btn-primary btn-sm" %>
+            <%= link_to "Destroy", [page, { website_id: @website.id }], method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

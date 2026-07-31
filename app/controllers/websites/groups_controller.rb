@@ -1,30 +1,30 @@
 class Websites::GroupsController < Websites::ApplicationController
   before_action :set_group, only: %i[ show edit update destroy ]
 
-  # GET /website/groups or /website/groups.json
+  # GET /websites/1/groups or /websites/1/groups.json
   def index
     @groups = @website.groups
     breadcrumb
   end
 
-  # GET /website/groups/1 or /website/groups/1.json
+  # GET /websites/1/groups/1 or /websites/1/groups/1.json
   def show
     breadcrumb
   end
 
-  # GET /website/groups/new
+  # GET /websites/1/groups/new
   def new
     @group = @website.groups.new
     breadcrumb
   end
 
-  # GET /website/groups/1/edit
+  # GET /websites/1/groups/1/edit
   def edit
     breadcrumb
     add_breadcrumb "Edit"
   end
 
-  # POST /website/groups or /website/groups.json
+  # POST /websites/1/groups or /websites/1/groups.json
   def create
     @group = @website.groups.new(group_params)
 
@@ -42,7 +42,7 @@ class Websites::GroupsController < Websites::ApplicationController
     end
   end
 
-  # PATCH/PUT /website/groups/1 or /website/groups/1.json
+  # PATCH/PUT /websites/1/groups/1 or /websites/1/groups/1.json
   def update
     respond_to do |format|
       if @group.update(group_params)
@@ -59,7 +59,7 @@ class Websites::GroupsController < Websites::ApplicationController
     end
   end
 
-  # DELETE /website/groups/1 or /website/groups/1.json
+  # DELETE /websites/1/groups/1 or /websites/1/groups/1.json
   def destroy
     @group.destroy!
 

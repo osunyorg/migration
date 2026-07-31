@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_31_125621) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_31_140540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -165,6 +165,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_125621) do
     t.index ["website_id"], name: "index_website_groups_on_website_id"
   end
 
+  create_table "website_pages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "body"
+    t.datetime "crawled_at"
+    t.datetime "created_at", null: false
+    t.uuid "group_id"
+    t.uuid "language_id", null: false
+    t.datetime "migrated_at"
+    t.uuid "parent_id"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.string "url"
+    t.uuid "website_id", null: false
+    t.index ["group_id"], name: "index_website_pages_on_group_id"
+    t.index ["language_id"], name: "index_website_pages_on_language_id"
+    t.index ["parent_id"], name: "index_website_pages_on_parent_id"
+    t.index ["website_id"], name: "index_website_pages_on_website_id"
+  end
+
   create_table "websites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.uuid "default_language_id"
@@ -177,5 +195,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_125621) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "website_groups", "websites"
+  add_foreign_key "website_pages", "languages"
+  add_foreign_key "website_pages", "website_groups", column: "group_id"
+  add_foreign_key "website_pages", "website_pages", column: "parent_id"
+  add_foreign_key "website_pages", "websites"
   add_foreign_key "websites", "languages", column: "default_language_id"
 end
