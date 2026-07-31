@@ -23,6 +23,8 @@
   </head>
 
   <body>
+    <%= render 'header' %>
+    <%= render_breadcrumbs builder: BreadcrumbsOnRailsBuilder %>
     <%= yield %>
     <%= javascript_include_tag "application" %>
   </body>
