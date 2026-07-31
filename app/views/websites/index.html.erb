@@ -2,7 +2,7 @@
 
 <h1>Websites</h1>
 
-<%= link_to "Create", new_website_path, class: "btn btn-primary" %>
+<%= link_to "Create", new_website_path, class: "btn btn-primary mb-3" %>
 
 <div clas="row" id="websites">
   <% @websites.each do |website| %>
@@ -10,6 +10,7 @@
       <div class="card">
         <div class="card-body">
           <h2><%= website %></h2>
+          <p><%= link_to website.url, website.url, target: :_blank %></p>
           <%= link_to "View", website, class: "btn btn-primary btn-sm" %>
         </div>
       </div>

@@ -1,0 +1,29 @@
+<% content_for :title, "Languages" %>
+
+<h1>Languages</h1>
+
+<%= link_to "Create", new_language_path, class: "btn btn-primary mb-3" %>
+
+<% if @languages.any? %>
+  <table class="table table-striped" id="languages">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Iso code</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @languages.each do |language| %>
+        <tr>
+          <td><%= language %></td>
+          <td><%= language.iso_code %></td>
+          <td>
+            <%= link_to "Edit", [:edit, language], class: "btn btn-primary btn-sm" %>
+            <%= link_to "Destroy", language, method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

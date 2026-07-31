@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_31_115247) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_31_121426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -140,6 +140,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_115247) do
     t.index ["queue_name"], name: "index_good_jobs_on_queue_name"
     t.index ["scheduled_at", "queue_name"], name: "index_good_jobs_on_scheduled_at_and_queue_name"
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
+  end
+
+  create_table "languages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "iso_code"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["iso_code"], name: "index_languages_on_iso_code", unique: true
   end
 
   create_table "websites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

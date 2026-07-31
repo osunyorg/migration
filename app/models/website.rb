@@ -10,6 +10,8 @@
 #
 class Website < ApplicationRecord
 
+  validates :name, :url, presence: true
+
   def to_s
     name
   end
