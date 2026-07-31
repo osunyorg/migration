@@ -14,7 +14,19 @@
   <% end %>
 </ul>
 
-<div>
+<div class="mb-3">
   <%= link_to "Edit", [:edit, @website], class: "btn btn-primary" %>
   <%= link_to "Destroy", @website, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+</div>
+
+<h2>Groups (<%= @groups.size %>)</h2>
+
+<%= link_to "Create Group", new_website_group_path(website_id: @website.id), class: "btn btn-primary mb-3" %>
+
+<div class="row" id="groups">
+  <% @groups.each do |group| %>
+    <div class="col-lg-3">
+      <%= render "websites/groups/group", group: group %>
+    </div>
+  <% end %>
 </div>

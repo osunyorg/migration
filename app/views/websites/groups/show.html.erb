@@ -1,0 +1,10 @@
+<% content_for :title, @group %>
+
+<h1><%= @group %></h1>
+
+<p>TODO: Pages</p>
+
+<div>
+  <%= link_to "Edit", [:edit, @group], class: "btn btn-primary" %>
+  <%= link_to "Destroy", @group, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+</div>

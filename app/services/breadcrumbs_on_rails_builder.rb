@@ -1,7 +1,7 @@
 class BreadcrumbsOnRailsBuilder < BreadcrumbsOnRails::Breadcrumbs::Builder
   def render
     return '' unless @elements.many?
-    html = '<nav class="container-fluid py-2" aria-label="breadcrumb"><ol class="breadcrumb m-0">'
+    html = '<nav class="container-fluid py-2 small" aria-label="breadcrumb"><ol class="breadcrumb m-0">'
     html += @elements.collect do |element|
       render_element(element)
     end.join('')

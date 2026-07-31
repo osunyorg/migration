@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_31_123757) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_31_125621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -156,6 +156,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_123757) do
     t.index ["website_id", "language_id"], name: "index_languages_websites_on_website_id_and_language_id"
   end
 
+  create_table "website_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.string "strategy_klass"
+    t.datetime "updated_at", null: false
+    t.uuid "website_id", null: false
+    t.index ["website_id"], name: "index_website_groups_on_website_id"
+  end
+
   create_table "websites", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.uuid "default_language_id"
@@ -167,5 +176,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_123757) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "website_groups", "websites"
   add_foreign_key "websites", "languages", column: "default_language_id"
 end

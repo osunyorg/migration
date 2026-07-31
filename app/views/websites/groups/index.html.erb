@@ -1,0 +1,13 @@
+<% content_for :title, "Groups" %>
+
+<h1>Groups</h1>
+
+<%= link_to "Create", new_website_group_path, class: "btn btn-primary mb-3" %>
+
+<div class="row" id="groups">
+  <% @groups.each do |group| %>
+    <div class="col-lg-3">
+      <%= render "group", group: group %>
+    </div>
+  <% end %>
+</div>
