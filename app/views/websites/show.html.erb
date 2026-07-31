@@ -7,6 +7,13 @@
   <%= @website.url %>
 </p>
 
+<p><strong>Languages</strong></p>
+<ul>
+  <% @website.languages.each do |language| %>
+    <%= content_tag :li, language, class: (@website.default_language_id == language.id ? 'fw-bold' : nil) %>
+  <% end %>
+</ul>
+
 <div>
   <%= link_to "Edit", [:edit, @website], class: "btn btn-primary" %>
   <%= link_to "Destroy", @website, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>

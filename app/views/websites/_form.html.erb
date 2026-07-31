@@ -7,6 +7,10 @@
       <%= f.input :name %>
       <%= f.input :url %>
     </div>
+    <div class="col-md-6">
+      <%= f.association :languages, as: :check_boxes %>
+      <%= f.association :default_language %>
+    </div>
   </div>
 
   <div class="form-actions">
