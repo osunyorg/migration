@@ -10,7 +10,7 @@ class WebsitesController < ApplicationController
   # GET /websites/1 or /websites/1.json
   def show
     @groups = @website.groups
-    @pages = @website.pages
+    @pages = @website.pages.ordered_by_url
     breadcrumb
   end
 

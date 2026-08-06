@@ -7,6 +7,13 @@
   <%= link_to @page.url, @page.url, target: :_blank %>
 </p>
 
+<% if @page.parent %>
+  <p>
+    <strong>Parent:</strong>
+    <%= link_to @page.parent, @page.parent, target: :_blank %>
+  </p>
+<% end %>
+
 <div>
   <%= link_to "Edit", [:edit, @page], class: "btn btn-primary" %>
   <%= link_to "Destroy", @page, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>

@@ -3,7 +3,7 @@ class Websites::PagesController < Websites::ApplicationController
 
   # GET /websites/1/pages or /websites/1/pages.json
   def index
-    @pages = @website.pages
+    @pages = @website.pages.ordered_by_url
     breadcrumb
   end
 
@@ -26,7 +26,7 @@ class Websites::PagesController < Websites::ApplicationController
 
   # POST /websites/1/pages or /websites/1/pages.json
   def create
-    @page = @website.pages.new(website_page_params)
+    @page = @website.pages.new(page_params)
 
     respond_to do |format|
       if @page.save
@@ -45,7 +45,7 @@ class Websites::PagesController < Websites::ApplicationController
   # PATCH/PUT /websites/1/pages/1 or /websites/1/pages/1.json
   def update
     respond_to do |format|
-      if @page.update(website_page_params)
+      if @page.update(page_params)
         format.html { redirect_to @page, notice: "Page was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @page }
       else

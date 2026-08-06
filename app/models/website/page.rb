@@ -34,6 +34,27 @@ class Website::Page < ApplicationRecord
   belongs_to :language
   belongs_to :group, optional: true
   belongs_to :parent, class_name: "Website::Page", optional: true
+  has_many :children, class_name: "Website::Page", foreign_key: :parent_id
 
   validates :title, :url, :language_id, presence: true
+
+  after_commit :set_group_to_children, if: [:root?, :saved_change_to_group_id?]
+
+  scope :root, -> { where(parent_id: nil) }
+  scope :search, -> (query) { where("url ILIKE ?", "%#{sanitize_sql_like(query)}%") }
+  scope :ordered_by_url, -> { order(:url) }
+
+  def root?
+    !parent_id
+  end
+
+  def to_s
+    url
+  end
+
+  protected
+
+  def set_group_to_children
+    children.update(group_id: group_id)
+  end
 end

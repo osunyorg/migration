@@ -1,0 +1,67 @@
+<% content_for :title, "Select pages" %>
+
+<h1>Select pages</h1>
+
+<%= form_tag nil, method: :get do %>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="input-group mb-3">
+        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search by URL" %>
+        <%= submit_tag "Search", class: "btn btn-dark" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= simple_form_for([:select_pages, @group], method: :post, html: { class: "js-select-all" }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="actions mb-3">
+    <%= button_tag "Select all", type: "button", class: "btn btn-secondary js-select-all--select-button" %>
+    <%= button_tag "Unselect all", type: "button", class: "btn btn-secondary js-select-all--unselect-button" %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+
+  <%= hidden_field_tag "query", params[:query], id: nil %>
+  <%= hidden_field_tag "website_group[page_ids][]", "", id: nil %>
+  <% @hidden_group_page_ids.each do |hidden_group_page_id| %>
+    <%= hidden_field_tag "website_group[page_ids][]", hidden_group_page_id, id: nil %>
+  <% end %>
+
+  <table class="table table-striped" id="pages">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pages.each do |page| %>
+        <% checkbox_dom_id = "website_group_page_ids_#{page.id}" %>
+        <tr>
+          <td>
+            <label class="d-block" for="<%= checkbox_dom_id %>">
+              <%= check_box_tag "website_group[page_ids][]",
+                                page.id,
+                                class: "js-select-all--checkbox",
+                                checked: @group.page_ids.include?(page.id),
+                                id: checkbox_dom_id %>
+            </label>
+          </td>
+          <td>
+            <label class="d-block" for="<%= checkbox_dom_id %>">
+              <%= link_to page.url, page.url, target: :_blank %>
+            </label>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <%= button_tag "Select all", type: "button", class: "btn btn-secondary js-select-all--select-button" %>
+    <%= button_tag "Unselect all", type: "button", class: "btn btn-secondary js-select-all--unselect-button" %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

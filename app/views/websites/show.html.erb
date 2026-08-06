@@ -29,6 +29,15 @@
         <%= render "websites/groups/group", group: group %>
       </div>
     <% end %>
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Pas de groupe</h5>
+
+          <p><%= @website.pages.where(group_id: nil).size %> pages</p>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 
@@ -46,8 +55,9 @@
     <tbody>
       <% @pages.each do |page| %>
         <tr>
-          <td><%= link_to page.url, page %></td>
+          <td><%= link_to page.url, website_page_path(page, { website_id: @website.id }) %></td>
           <td>
+            <%= link_to "View on website", page.url, target: :_blank, class: "btn btn-dark btn-sm" %>
             <%= link_to "Edit", [:edit, page, { website_id: @website.id }], class: "btn btn-primary btn-sm" %>
             <%= link_to "Destroy", [page, { website_id: @website.id }], method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
           </td>

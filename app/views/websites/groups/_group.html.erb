@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title"><%= link_to group, group %></h5>
+    <h5 class="card-title"><%= link_to group, website_group_path(group, { website_id: group.website_id }) %></h5>
 
-    <p># pages</p>
+    <p><%= group.pages.size %> pages</p>
   </div>
 </div>

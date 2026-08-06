@@ -2,9 +2,33 @@
 
 <h1><%= @group %></h1>
 
-<p>TODO: Pages</p>
-
-<div>
+<div class="mb-4">
   <%= link_to "Edit", [:edit, @group], class: "btn btn-primary" %>
   <%= link_to "Destroy", @group, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>
+
+<h2>Pages (<%= @pages.size %>)</h2>
+<%= link_to "Select Pages", select_pages_website_group_path(@group, website_id: @website.id), class: "btn btn-primary mb-3" %>
+
+<% if @pages.any? %>
+  <table class="table table-striped" id="pages">
+    <thead>
+      <tr>
+        <th>URL</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @pages.each do |page| %>
+        <tr>
+          <td><%= link_to page.url, page %></td>
+          <td>
+            <%= link_to "View on website", page.url, target: :_blank, class: "btn btn-dark btn-sm" %>
+            <%= link_to "Edit", [:edit, page, { website_id: @website.id }], class: "btn btn-primary btn-sm" %>
+            <%= link_to "Destroy", [page, { website_id: @website.id }], method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

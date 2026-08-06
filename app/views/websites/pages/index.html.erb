@@ -2,7 +2,7 @@
 
 <h1>Pages</h1>
 
-<%= link_to "Create", new_website_page_path %>
+<%= link_to "Create", new_website_page_path, class: "btn btn-primary" %>
 
 <table class="table table-striped" id="pages">
   <thead>
@@ -16,6 +16,7 @@
       <tr>
         <td><%= link_to page.url, page %></td>
         <td>
+          <%= link_to "View on website", page.url, target: :_blank, class: "btn btn-dark btn-sm" %>
           <%= link_to "Edit", [:edit, page], class: "btn btn-primary btn-sm" %>
           <%= link_to "Destroy", page, method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
         </td>

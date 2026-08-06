@@ -19,6 +19,7 @@
 #
 class Website::Group < ApplicationRecord
   belongs_to :website
+  has_many :pages
 
   def to_s
     name
