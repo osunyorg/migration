@@ -25,19 +25,10 @@
 <% if @groups.any? %>
   <div class="row mb-4" id="groups">
     <% @groups.each do |group| %>
-      <div class="col-lg-3">
+      <div class="col-lg-3 mb-3">
         <%= render "websites/groups/group", group: group %>
       </div>
     <% end %>
-    <div class="col-lg-3">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Pas de groupe</h5>
-
-          <p><%= @website.pages.where(group_id: nil).size %> pages</p>
-        </div>
-      </div>
-    </div>
   </div>
 <% end %>
 
