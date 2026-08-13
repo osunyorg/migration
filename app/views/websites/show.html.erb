@@ -22,38 +22,11 @@
 <h2>Groups (<%= @groups.size %>)</h2>
 <%= link_to "Create Group", new_website_group_path(website_id: @website.id), class: "btn btn-primary mb-3" %>
 
-<% if @groups.any? %>
-  <div class="row mb-4" id="groups">
-    <% @groups.each do |group| %>
-      <div class="col-lg-3 mb-3">
-        <%= render "websites/groups/group", group: group %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<%= render "websites/groups/list", groups: @groups if @groups.any? %>
 
-<h2>Pages (<%= @pages.size %>)</h2>
+<h2>Root pages (<%= @root_pages.size %>)</h2>
+
+<p>Total: <%= @website.pages.size %></p>
 <%= link_to "Create Page", new_website_page_path(website_id: @website.id), class: "btn btn-primary mb-3" %>
 
-<% if @pages.any? %>
-  <table class="table table-striped" id="pages">
-    <thead>
-      <tr>
-        <th>URL</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @pages.each do |page| %>
-        <tr>
-          <td><%= link_to page.url, website_page_path(page, { website_id: @website.id }) %></td>
-          <td>
-            <%= link_to "View on website", page.url, target: :_blank, class: "btn btn-dark btn-sm" %>
-            <%= link_to "Edit", [:edit, page, { website_id: @website.id }], class: "btn btn-primary btn-sm" %>
-            <%= link_to "Destroy", [page, { website_id: @website.id }], method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% end %>
+<%= render "websites/pages/list", pages: @root_pages if @root_pages.any? %>

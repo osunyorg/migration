@@ -9,7 +9,7 @@ class Websites::GroupsController < Websites::ApplicationController
 
   # GET /websites/1/groups/1 or /websites/1/groups/1.json
   def show
-    @pages = @group.pages.ordered_by_url
+    @root_pages = @group.pages.root.ordered_by_url
     breadcrumb
   end
 
