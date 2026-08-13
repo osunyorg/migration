@@ -44,6 +44,11 @@ class Website::Page < ApplicationRecord
   scope :search, -> (query) { where("url ILIKE ?", "%#{sanitize_sql_like(query)}%") }
   scope :ordered_by_url, -> { order(:url) }
 
+  def migrate!
+    return unless group && group.strategy_klass.present?
+    strategy_klass.safe_constantize.new(self).migrate!
+  end
+
   def root?
     !parent_id
   end
