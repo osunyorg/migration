@@ -5,20 +5,6 @@
   <%= link_to @website.url, @website.url, target: :_blank %>
 </p>
 
-<p><strong><%= Website::Language.model_name.human(count: 2) %></strong></p>
-<ul class="list-unstyled">
-  <% @website.languages.each do |language| %>
-    <li>
-      <%= language %>
-      <% if @website.default_language_id == language.id %>
-        <span class="badge bg-secondary text-dark">
-        <%= Website.human_attribute_name(:default_language) %>
-        </span>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
-
 <div class="mb-4">
   <%= link_to t('actions.crawl'), [:crawl, @website], class: "btn btn-primary" %>
   <%= link_to t('actions.edit'), [:edit, @website], class: "btn btn-primary" %>
