@@ -1,7 +1,7 @@
 class Strategies::PianosBalleron::Glossary < Strategies::Base
 
   def osuny_api_instance
-    @osuny_api_instance ||= OsunyApi::CommunicationWebsitePortfolioProjectApi.new
+    @osuny_api_instance ||= OsunyApi::CommunicationWebsitePortfolioProjectApi.new(website.osuny_api_configuration)
   end
 
   def apply_to_page

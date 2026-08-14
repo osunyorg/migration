@@ -17,6 +17,7 @@ fr:
         pages: Pages
         strategy: Stratégie
         strategy_klass: Stratégie
+        osuny_target_id: Identifiant de la cible dans osuny
       website/page:
         group: Groupe
         language: Langue

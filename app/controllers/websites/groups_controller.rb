@@ -111,7 +111,7 @@ class Websites::GroupsController < Websites::ApplicationController
 
   # Only allow a list of trusted parameters through.
   def group_params
-    params.expect(website_group: [ :name, :strategy_klass ])
+    params.expect(website_group: [ :name, :strategy_klass, :osuny_target_id ])
   end
 
   def load_select_pages_variables
