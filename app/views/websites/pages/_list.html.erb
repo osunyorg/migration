@@ -3,6 +3,7 @@
     <tr>
       <th><%= Website::Page.human_attribute_name(:path) %></th>
       <th><%= Website::Page.human_attribute_name(:title) %></th>
+      <th><%= Language.model_name.human %></th>
     </tr>
   </thead>
   <tbody>
@@ -10,6 +11,7 @@
       <tr>
         <td><%= link_to page, [page, website_id: page.website_id], class: 'text-decoration-none' %></td>
         <td class="small"><%= page.title %></td>
+        <td><%= page.language %></td>
       </tr>
     <% end %>
   </tbody>

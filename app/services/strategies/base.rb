@@ -47,7 +47,7 @@ class Strategies::Base
   end
 
   def apply_to_group
-    @group.pages.root.ordered.each do |page|
+    @group.pages.ordered.each do |page|
       @page = page
       apply_to_page
     end

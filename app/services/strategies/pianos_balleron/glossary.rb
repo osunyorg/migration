@@ -33,12 +33,12 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
 
   def json(page)
     {
-      migration_identifier: page.migration_identifier,
+      migration_identifier: root_page_identifier,
       parent_id: group.osuny_target_id,
       localizations: {
         "#{page.language.iso_code}": {
           title: title,
-          migration_identifier: "#{page.migration_identifier}-#{page.language.iso_code}",
+          migration_identifier: "#{root_page_identifier}-#{page.language.iso_code}",
           published: true,
           meta_description: meta_description,
           featured_image: {
@@ -46,7 +46,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
           },
           blocks: [
             {
-              migration_identifier: "#{page.migration_identifier}-#{page.language.iso_code}-chapter",
+              migration_identifier: "#{root_page_identifier}-#{page.language.iso_code}-chapter",
               template_kind: 'chapter',
               data: {
                 text: chapter
@@ -56,6 +56,10 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
         }
       }
     }
+  end
+
+  def root_page_identifier
+    page.root? ? page.migration_identifier : page.parent.migration_identifier
   end
 
   def title
