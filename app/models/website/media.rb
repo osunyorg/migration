@@ -28,4 +28,18 @@ class Website::Media < ApplicationRecord
   def to_s
     url
   end
+
+  def sync_to_osuny!
+    return if osuny_communication_media_id.present?
+    osuny_api = OsunyApi::CommunicationWebsiteMediaApi.new(website.osuny_api_client)
+    response = osuny_api.communication_medias_post_with_http_info({
+      url: url,
+      return_type: 'Object'
+    })
+    osuny_communication_media = response[0]
+    update!(
+      osuny_communication_media_id: osuny_communication_media[:id],
+      osuny_active_storage_blob_id: osuny_communication_media[:original_blob][:id]
+    )
+  end
 end
