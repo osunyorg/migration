@@ -46,3 +46,6 @@
 
 # Ignore node_modules just in case
 /node_modules
+
+/db/*.dump
+/db/*.pgsql

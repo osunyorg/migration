@@ -5,7 +5,7 @@ require "rails"
 require "active_model/railtie"
 require "active_job/railtie"
 require "active_record/railtie"
-require "active_storage/engine"
+# require "active_storage/engine"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 # require "action_mailbox/engine"
@@ -47,12 +47,6 @@ module OsunyMigrator
         password: ENV['SMTP_PASSWORD'],
         authentication: :plain
     }
-
-    # TODO Remove when kamifusen is compatible with Vips
-    config.active_storage.variant_processor = :mini_magick
-    # Need for +repage, because of https://github.com/rails/rails/commit/b2ab8dd3a4a184f3115e72b55c237c7b66405bd9
-    config.active_storage.supported_image_processing_methods = ["+"]
-    config.active_storage.service_urls_expire_in = 1.hour
 
     config.generators do |generate|
       generate.assets false
