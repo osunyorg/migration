@@ -9,7 +9,6 @@ class Websites::ApplicationController < ApplicationController
 
   def breadcrumb
     super
-    add_breadcrumb Website.model_name.human(count: 2), websites_path
     add_breadcrumb @website, @website
   end
 

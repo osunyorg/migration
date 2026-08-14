@@ -14,19 +14,11 @@
   </head>
   <body>
     <%= render 'header' %>
-    <main>
-      <div class="container-fluid mt-5">
-        <h1><%= yield :title %></h1>
-      </div>
-      <% if breadcrumbs.any? %>
-        <div class="mt-5">
-          <%= render_breadcrumbs builder: BreadcrumbsOnRailsBuilder %>
-        </div>
-      <% end %>
-      <div class="container-fluid mt-5">
-        <%= render 'notice' %>
-        <%= yield %>
-      </div>
+    <main class="container-fluid my-5">
+      <h1 class="my-5"><%= yield :title %></h1>
+      <%= render 'breadcrumb' %>
+      <%= render 'notice' %>
+      <%= yield %>
     </main>
     <%= javascript_include_tag "application" %>
   </body>
