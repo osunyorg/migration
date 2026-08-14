@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= Website::Media.human_attribute_name(:url) %></th>
+      <th><%= Website::Media.human_attribute_name(:osuny_communication_media_id) %></th>
+      <th><%= Website::Media.human_attribute_name(:osuny_active_storage_blob_id) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% medias.each do |media| %>
+      <tr>
+        <td>
+          <%= link_to media, website_media_path(media, { website_id: media.website_id }), class: 'text-decoration-none' %>
+        </td>
+        <td><%= media.osuny_communication_media_id %></td>
+        <td><%= media.osuny_active_storage_blob_id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

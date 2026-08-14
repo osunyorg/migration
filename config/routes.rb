@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       end
     end
     resources :languages, controller: "websites/languages"
+    resources :medias, controller: "websites/medias", only: [:index, :show]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

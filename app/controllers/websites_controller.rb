@@ -12,6 +12,7 @@ class WebsitesController < ApplicationController
     @languages = @website.languages.ordered
     @groups = @website.groups.ordered
     @root_pages = @website.pages.root.ordered_by_url
+    @medias = @website.medias.ordered_by_url
     breadcrumb
   end
 

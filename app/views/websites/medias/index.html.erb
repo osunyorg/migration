@@ -1,0 +1,5 @@
+<% content_for :title, Website::Media.model_name.human(count: 2) %>
+
+<% if @medias.any? %>
+  <%= render 'list', medias: @medias %>
+<% end %>

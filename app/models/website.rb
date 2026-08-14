@@ -23,6 +23,7 @@
 class Website < ApplicationRecord
 
   has_many :groups, dependent: :destroy
+  has_many :medias, dependent: :destroy
   has_many :pages, dependent: :destroy
   has_many :languages
   belongs_to :default_language, class_name: "Website::Language", optional: true
