@@ -21,6 +21,8 @@ class Website::Group < ApplicationRecord
   belongs_to :website
   has_many :pages
 
+  scope :ordered, -> {order(:name)}
+
   def migrate!
     strategy.migrate_group!(self)
   end

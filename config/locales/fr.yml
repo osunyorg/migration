@@ -11,6 +11,7 @@ fr:
         default_language: Langue par défaut
       website/group:
         name: Nom
+        pages: Pages
         strategy: Stratégie
         strategy_klass: Stratégie
       website/page:

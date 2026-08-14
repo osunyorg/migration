@@ -27,6 +27,8 @@ class Website < ApplicationRecord
   validates :name, :url, presence: true
   validates :default_language_id, inclusion: { in: ->(website) { website.language_ids } }, allow_nil: true
 
+  scope :ordered, -> {order(:name)}
+
   def available_strategies
     strategy_module ? strategy_module.constants : []
   end

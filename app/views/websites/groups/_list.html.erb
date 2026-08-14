@@ -1,7 +1,16 @@
-<div class="row">
-  <% groups.each do |group| %>
-    <div class="col-lg-3 mb-3">
-      <%= render "websites/groups/group", group: group %>
-    </div>
-  <% end %>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= Website::Group.human_attribute_name(:name) %></th>
+      <th><%= Website::Group.human_attribute_name(:pages) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% groups.each do |group| %>
+      <tr>
+        <td><%= link_to group, website_group_path(group, { website_id: group.website_id }), class: 'text-decoration-none' %></td>
+        <td><%= group.pages.size %> <%= Website::Page.model_name.human(count: 2).downcase %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
