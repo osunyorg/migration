@@ -1,32 +1,32 @@
-class LanguagesController < ApplicationController
+class Websites::LanguagesController < Websites::ApplicationController
   before_action :set_language, only: %i[ show edit update destroy ]
 
-  # GET /languages or /languages.json
+  # GET /websites/1/languages or /websites/1/languages.json
   def index
-    @languages = Language.all
+    @languages = @website.languages.all
     breadcrumb
   end
 
-  # GET /languages/1 or /languages/1.json
+  # GET /websites/1/languages/1 or /websites/1/languages/1.json
   def show
     breadcrumb
   end
 
-  # GET /languages/new
+  # GET /websites/1/languages/new
   def new
-    @language = Language.new
+    @language = @website.languages.new
     breadcrumb
   end
 
-  # GET /languages/1/edit
+  # GET /websites/1/languages/1/edit
   def edit
     breadcrumb
     add_breadcrumb t('actions.edit')
   end
 
-  # POST /languages or /languages.json
+  # POST /websites/1/languages or /websites/1/languages.json
   def create
-    @language = Language.new(language_params)
+    @language = @website.languages.new(language_params)
 
     respond_to do |format|
       if @language.save
@@ -42,7 +42,7 @@ class LanguagesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /languages/1 or /languages/1.json
+  # PATCH/PUT /websites/1/languages/1 or /websites/1/languages/1.json
   def update
     respond_to do |format|
       if @language.update(language_params)
@@ -59,12 +59,12 @@ class LanguagesController < ApplicationController
     end
   end
 
-  # DELETE /languages/1 or /languages/1.json
+  # DELETE /websites/1/languages/1 or /websites/1/languages/1.json
   def destroy
     @language.destroy!
 
     respond_to do |format|
-      format.html { redirect_to languages_path, notice: "Language was successfully destroyed.", status: :see_other }
+      format.html { redirect_to website_languages_path, notice: "Language was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -73,17 +73,17 @@ class LanguagesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_language
-    @language = Language.find(params.expect(:id))
+    @language = @website.languages.find(params.expect(:id))
   end
 
   # Only allow a list of trusted parameters through.
   def language_params
-    params.expect(language: [ :name, :iso_code ])
+    params.expect(website_language: [ :name, :iso_code, :osuny_iso_code ])
   end
 
   def breadcrumb
     super
-    add_breadcrumb Language.model_name.human(count: 2), languages_path
+    add_breadcrumb Website::Language.model_name.human(count: 2), website_languages_path
     if @language
       if @language.persisted?
         add_breadcrumb @language, @language

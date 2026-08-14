@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (default_language_id => languages.id)
+#  fk_rails_...  (default_language_id => website_languages.id)
 #
 one:
   name: MyString

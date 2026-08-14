@@ -25,7 +25,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (group_id => website_groups.id)
-#  fk_rails_...  (language_id => languages.id)
+#  fk_rails_...  (language_id => website_languages.id)
 #  fk_rails_...  (parent_id => website_pages.id)
 #  fk_rails_...  (website_id => websites.id)
 #
@@ -61,7 +61,7 @@ class Website::Page < ApplicationRecord
   def path
     url.sub(website.url, '')
   end
-  
+
   def nokogiri
     @nokogiri ||= Nokogiri::HTML(html)
   end

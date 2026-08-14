@@ -18,14 +18,14 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (default_language_id => languages.id)
+#  fk_rails_...  (default_language_id => website_languages.id)
 #
 class Website < ApplicationRecord
 
   has_many :groups, dependent: :destroy
   has_many :pages, dependent: :destroy
-  has_and_belongs_to_many :languages
-  belongs_to :default_language, class_name: "Language", optional: true
+  has_many :languages
+  belongs_to :default_language, class_name: "Website::Language", optional: true
 
   validates :name, :url, presence: true
   validates :default_language_id, inclusion: { in: ->(website) { website.language_ids } }, allow_nil: true
@@ -56,7 +56,7 @@ class Website < ApplicationRecord
       config
     end
   end
-  
+
   def to_s
     name
   end
@@ -67,5 +67,5 @@ class Website < ApplicationRecord
     return unless Strategies.constants.include?(to_camel.to_sym)
     "Strategies::#{to_camel}".safe_constantize
   end
-  
+
 end

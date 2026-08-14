@@ -20,7 +20,7 @@ require "test_helper"
 #
 # Foreign Keys
 #
-#  fk_rails_...  (default_language_id => languages.id)
+#  fk_rails_...  (default_language_id => website_languages.id)
 #
 class WebsiteTest < ActiveSupport::TestCase
   # test "the truth" do

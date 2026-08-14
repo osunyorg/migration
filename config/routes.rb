@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :languages
   resources :websites do
     member do
       get :crawl
@@ -16,6 +15,7 @@ Rails.application.routes.draw do
         get :migrate
       end
     end
+    resources :languages, controller: "websites/languages"
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

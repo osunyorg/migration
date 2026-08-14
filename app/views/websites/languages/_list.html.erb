@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= Website::Language.human_attribute_name(:name) %></th>
+      <th><%= Website::Language.human_attribute_name(:iso_code) %></th>
+      <th><%= Website::Language.human_attribute_name(:osuny_iso_code) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% languages.each do |language| %>
+      <tr>
+        <td>
+          <%= link_to language, website_language_path(language, { website_id: language.website_id }), class: 'text-decoration-none' %>
+          <% if @website.default_language_id == language.id %>
+            <span class="badge bg-secondary text-dark">
+            <%= Website.human_attribute_name(:default_language) %>
+            </span>
+          <% end %>
+        </td>
+        <td><%= language.iso_code %></td>
+        <td><%= language.osuny_iso_code %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

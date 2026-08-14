@@ -36,7 +36,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
       migration_identifier: root_page_identifier,
       parent_id: group.osuny_target_id,
       localizations: {
-        "#{page.language.iso_code}": {
+        "#{page.language.osuny_iso_code}": {
           title: title,
           migration_identifier: "#{root_page_identifier}-#{page.language.iso_code}",
           published: true,
@@ -69,7 +69,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
   def meta_description
     page.nokogiri.css('meta[name="description"]').first['content']
   end
-  
+
   def chapter
     @chapter ||= begin
       text = page.nokogiri.css('p').first.to_html

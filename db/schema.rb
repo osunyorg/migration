@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_085915) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_14_101836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -142,20 +142,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_085915) do
     t.index ["scheduled_at"], name: "index_good_jobs_on_scheduled_at", where: "(finished_at IS NULL)"
   end
 
-  create_table "languages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "iso_code"
-    t.string "name"
-    t.datetime "updated_at", null: false
-    t.index ["iso_code"], name: "index_languages_on_iso_code", unique: true
-  end
-
-  create_table "languages_websites", id: false, force: :cascade do |t|
-    t.uuid "language_id", null: false
-    t.uuid "website_id", null: false
-    t.index ["website_id", "language_id"], name: "index_languages_websites_on_website_id_and_language_id"
-  end
-
   create_table "website_groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -164,6 +150,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_085915) do
     t.datetime "updated_at", null: false
     t.uuid "website_id", null: false
     t.index ["website_id"], name: "index_website_groups_on_website_id"
+  end
+
+  create_table "website_languages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "iso_code"
+    t.string "name"
+    t.string "osuny_iso_code"
+    t.datetime "updated_at", null: false
+    t.uuid "website_id", null: false
+    t.index ["iso_code"], name: "index_website_languages_on_iso_code", unique: true
+    t.index ["website_id"], name: "index_website_languages_on_website_id"
   end
 
   create_table "website_pages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -199,9 +196,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_085915) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "website_groups", "websites"
-  add_foreign_key "website_pages", "languages"
+  add_foreign_key "website_languages", "websites"
   add_foreign_key "website_pages", "website_groups", column: "group_id"
+  add_foreign_key "website_pages", "website_languages", column: "language_id"
   add_foreign_key "website_pages", "website_pages", column: "parent_id"
   add_foreign_key "website_pages", "websites"
-  add_foreign_key "websites", "languages", column: "default_language_id"
+  add_foreign_key "websites", "website_languages", column: "default_language_id"
 end

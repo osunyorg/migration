@@ -9,6 +9,7 @@ class WebsitesController < ApplicationController
 
   # GET /websites/1 or /websites/1.json
   def show
+    @languages = @website.languages.ordered
     @groups = @website.groups.ordered
     @root_pages = @website.pages.root.ordered_by_url
     breadcrumb
@@ -89,7 +90,7 @@ class WebsitesController < ApplicationController
     params.expect(website: [
       :name, :url,
       :osuny_host,:osuny_api_key, :osuny_website_id,
-      :default_language_id, language_ids: [] 
+      :default_language_id
     ])
   end
 
