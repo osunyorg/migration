@@ -9,6 +9,7 @@ class Websites::LanguagesController < Websites::ApplicationController
 
   # GET /websites/1/languages/1 or /websites/1/languages/1.json
   def show
+    @pages = @language.pages.ordered
     breadcrumb
   end
 

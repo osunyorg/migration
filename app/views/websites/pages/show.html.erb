@@ -1,46 +1,5 @@
 <% content_for :title, @page %>
 
-<p>
-  <strong><%= Website::Page.human_attribute_name(:title) %></strong>
-  <%= @page.title %>
-</p>
-
-<p>
-  <strong><%= Website::Page.human_attribute_name(:url) %></strong>
-  <%= link_to @page.url, @page.url, target: :_blank %>
-</p>
-
-<p>
-  <strong><%= Website::Page.human_attribute_name(:language) %></strong>
-  <%= @page.language %>
-</p>
-
-<p>
-  <strong><%= Website::Page.human_attribute_name(:group) %></strong>
-  <%= link_to @page.group, @page.group if @page.group %>
-</p>
-
-<p>
-  <strong><%= Website::Page.human_attribute_name(:strategy) %></strong>
-  <%= @page.strategy %>
-</p>
-
-<% if @page.parent %>
-  <p>
-    <strong><%= Website::Page.human_attribute_name(:parent) %></strong>
-    <%= link_to @page.parent, @page.parent %>
-  </p>
-<% end %>
-
-<% if @page.children.any? %>
-  <p><strong><%= Website::Page.human_attribute_name(:children) %></strong></p>
-  <ul class="list-unstyled">
-    <% @page.children.each do |page| %>
-      <li><%= link_to page, [page, website_id: page.website_id] %></li>
-    <% end %>
-  </ul>
-<% end %>
-
 <div class="mb-5">
   <% if @page.strategy %>
     <%= link_to t('actions.migrate_dry_run'), [:migrate, @page, { dry_run: true }], class: "btn btn-primary" %>
@@ -49,6 +8,61 @@
   <%= link_to t('actions.edit'), [:edit, @page], class: "btn btn-primary" %>
   <%= link_to t('actions.delete'), @page, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>
+
+<div class="row">
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Page.human_attribute_name(:title) %></p>
+    <p><%= @page.title %></p>
+  </div>
+
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Page.human_attribute_name(:url) %></p>
+    <p><%= link_to @page.url, @page.url, target: :_blank %></p>
+  </div>
+
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Page.human_attribute_name(:language) %></p>
+    <p><%= @page.language %></p>
+  </div>
+
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Page.human_attribute_name(:group) %></p>
+    <p><%= link_to @page.group, @page.group if @page.group %></p>
+  </div>
+
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Page.human_attribute_name(:crawled_at) %></p>
+    <p><%= l @page.crawled_at %></p>
+  </div>
+
+  <% if @page.migrated_at %>
+    <div class="col-md-3">
+      <p class="form-label"><%= Website::Page.human_attribute_name(:migrated_at) %></p>
+      <p><%= l @page.migrated_at %></p>
+  </div>
+  <% end %>
+
+  <% if @page.strategy %>
+    <div class="col-md-3">
+      <p class="form-label"><%= Website::Page.human_attribute_name(:strategy) %></p>
+      <p><%= @page.strategy %></p>
+   </div>
+ <% end %>
+</div>
+
+<% if @page.parent %>
+  <p class="form-label"><%= Website::Page.human_attribute_name(:parent) %></p>
+  <p><%= link_to @page.parent, @page.parent %></p>
+<% end %>
+
+<% if @page.children.any? %>
+  <p class="form-label"><%= Website::Page.human_attribute_name(:children) %></p>
+  <ul class="list-unstyled">
+    <% @page.children.each do |page| %>
+      <li><%= link_to page, [page, website_id: page.website_id] %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <div class="card bg-light">
   <div class="card-body">

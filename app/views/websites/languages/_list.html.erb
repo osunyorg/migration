@@ -4,6 +4,7 @@
       <th><%= Website::Language.human_attribute_name(:name) %></th>
       <th><%= Website::Language.human_attribute_name(:iso_code) %></th>
       <th><%= Website::Language.human_attribute_name(:osuny_iso_code) %></th>
+      <th><%= Website::Language.human_attribute_name(:pages_count) %></th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +20,7 @@
         </td>
         <td><%= language.iso_code %></td>
         <td><%= language.osuny_iso_code %></td>
+        <td><%= language.pages.size %></td>
       </tr>
     <% end %>
   </tbody>

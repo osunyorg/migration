@@ -1,16 +1,22 @@
 <% content_for :title, @language %>
 
-<p>
-  <strong><%= Website::Language.human_attribute_name(:iso_code) %></strong>
-  <%= @language.iso_code %>
-</p>
-
-<p>
-  <strong><%= Website::Language.human_attribute_name(:osuny_iso_code) %></strong>
-  <%= @language.osuny_iso_code %>
-</p>
-
-<div>
+<div class="mb-5">
   <%= link_to t('actions.edit'), [:edit, @language], class: "btn btn-primary" %>
   <%= link_to t('actions.delete'), @language, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>
+
+<div class="row">
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Language.human_attribute_name(:iso_code) %></p>
+    <p><%= @language.iso_code %></p>
+  </div>
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Language.human_attribute_name(:osuny_iso_code) %></p>
+    <p><%= @language.osuny_iso_code %></p>
+  </div>
+</div>
+
+<% if @pages.any? %>
+  <h2 class="h4 mt-5"><%= @pages.size %> <%= Website::Page.model_name.human(count: 2).downcase %></h2>
+  <%= render "websites/pages/list", pages: @pages %>
+<% end %>

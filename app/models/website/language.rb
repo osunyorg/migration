@@ -21,6 +21,7 @@
 #
 class Website::Language < ApplicationRecord
   belongs_to :website
+  has_many :pages
 
   validates :name, :iso_code, presence: true
   validates :iso_code, uniqueness: true

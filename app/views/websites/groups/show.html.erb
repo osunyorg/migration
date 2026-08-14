@@ -1,11 +1,6 @@
 <% content_for :title, @group %>
 
-<p>
-  <strong><%= Website::Group.human_attribute_name(:strategy) %></strong>
-  <%= @group.strategy %>
-</p>
-
-<div class="mb-4">
+<div class="mb-5">
   <% if @group.strategy %>
     <%= link_to t('actions.migrate_dry_run'), [:migrate, @group, dry_run: true], class: "btn btn-primary" %>
     <%= link_to t('actions.migrate'), [:migrate, @group], class: "btn btn-primary" %>
@@ -14,8 +9,11 @@
   <%= link_to t('actions.delete'), @group, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>
 
+<p class="form-label"><%= Website::Group.human_attribute_name(:strategy) %></p>
+<p><%= @group.strategy %></p>
+
 <% if @pages.any? %>
-  <h2><%= Website::Page.model_name.human(count: 2) %></h2>
+  <h2 class="h4 mt-5"><%= Website::Page.model_name.human(count: 2) %></h2>
   <p>
     <%= @pages.size %> pages
     dont <%= @root_pages.size %> dans la langue par défaut

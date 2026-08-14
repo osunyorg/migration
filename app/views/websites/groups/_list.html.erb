@@ -3,6 +3,7 @@
     <tr>
       <th><%= Website::Group.human_attribute_name(:name) %></th>
       <th><%= Website::Group.human_attribute_name(:pages) %></th>
+      <th><%= Website::Group.human_attribute_name(:strategy) %></th>
     </tr>
   </thead>
   <tbody>
@@ -10,6 +11,7 @@
       <tr>
         <td><%= link_to group, website_group_path(group, { website_id: group.website_id }), class: 'text-decoration-none' %></td>
         <td><%= group.pages.size %> <%= Website::Page.model_name.human(count: 2).downcase %></td>
+        <td><%= group.strategy %></td>
       </tr>
     <% end %>
   </tbody>

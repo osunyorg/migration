@@ -19,6 +19,7 @@ fr:
         name: Nom
         iso_code: Code ISO
         osuny_iso_code: Code ISO (osuny)
+        pages_count: Nombre de pages
       website/page:
         children: Versions dans d'autres langues
         crawled_at: Date d'indexation
@@ -54,7 +55,7 @@ fr:
     read: Lire
     save: Enregistrer
     select_pages: Sélectionner les pages
-  home:
-    breadcrumb: Accueil
+  home: 
     h1: Bienvenue !
+    breadcrumb: Accueil
   title: migration
