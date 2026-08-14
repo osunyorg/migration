@@ -114,7 +114,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def datatable_elements
-    @elements = []
+    elements = []
     page.nokogiri.css('.produit_fiche em').each do |em|
       next if em.text.blank?
       key = em.children.first.text.gsub(' :', '').lstrip.rstrip
@@ -125,9 +125,9 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
       ])
       value = em.children.last.text.lstrip.rstrip
       next if value.empty?
-      @elements << { cells:[key, value] }
+      elements << { cells:[key, value] }
     end
-    @elements
+    elements
   end
 
   # Galerie de photos
@@ -144,15 +144,15 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def block_gallery?
-    page.nokogiri.css('.produit_fiche').any?
+    page.nokogiri.css('.produit_fiche img').any?
   end
 
   def gallery_elements
-    @elements = []
+    elements = []
     page.nokogiri.css('.produit_fiche img').each do |img|
       image_url = img[:src]
       # TODO get image id
-      @elements << {
+      elements << {
         image_url: image_url,
         image: '',
         alt: '',
@@ -160,7 +160,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
         text: ''
       }
     end
-    @elements
+    elements
   end
 
   # Vidéo
