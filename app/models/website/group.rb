@@ -2,14 +2,13 @@
 #
 # Table name: website_groups
 #
-#  id              :uuid             not null, primary key
-#  name            :string
-#  settings        :jsonb            not null
-#  strategy_klass  :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  osuny_target_id :string
-#  website_id      :uuid             not null
+#  id             :uuid             not null, primary key
+#  name           :string
+#  settings       :jsonb            not null
+#  strategy_klass :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  website_id     :uuid             not null
 #
 # Indexes
 #

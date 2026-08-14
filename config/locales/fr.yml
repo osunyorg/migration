@@ -15,7 +15,6 @@ fr:
         settings: Réglages JSON
         strategy: Stratégie
         strategy_klass: Stratégie
-        osuny_target_id: Identifiant de la cible dans osuny
       website/language:
         name: Nom
         iso_code: Code ISO
