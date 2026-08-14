@@ -4,6 +4,7 @@
 #
 #  id              :uuid             not null, primary key
 #  name            :string
+#  settings        :jsonb            not null
 #  strategy_klass  :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

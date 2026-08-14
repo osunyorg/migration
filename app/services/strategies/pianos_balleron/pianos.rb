@@ -1,5 +1,13 @@
 class Strategies::PianosBalleron::Pianos < Strategies::Base
 
+  def hint
+    "<p>Dans les réglages JSON, indiquer les catégories</p>
+<pre>{
+  \"category_selling\": \"UUID\",
+  \"category_sold\": \"UUID\"
+}</pre>"
+  end
+
   def apply_to_page
     if title.empty?
       log 'Le titre est vide, on passe'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_101836) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_14_135951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -146,6 +146,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_101836) do
     t.datetime "created_at", null: false
     t.string "name"
     t.string "osuny_target_id"
+    t.jsonb "settings", default: {}, null: false
     t.string "strategy_klass"
     t.datetime "updated_at", null: false
     t.uuid "website_id", null: false
