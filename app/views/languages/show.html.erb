@@ -6,6 +6,6 @@
 </p>
 
 <div>
-  <%= link_to "Edit", [:edit, @language], class: "btn btn-primary" %>
-  <%= link_to "Destroy", @language, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+  <%= link_to t('actions.edit'), [:edit, @language], class: "btn btn-primary" %>
+  <%= link_to t('actions.delete'), @language, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>

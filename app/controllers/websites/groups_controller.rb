@@ -16,7 +16,7 @@ class Websites::GroupsController < Websites::ApplicationController
   def migrate
     @migration = @group.migrate!
     breadcrumb
-    add_breadcrumb 'Migration'
+    add_breadcrumb t('actions.migrate')
   end
 
   # GET /websites/1/groups/new
@@ -28,7 +28,7 @@ class Websites::GroupsController < Websites::ApplicationController
   # GET /websites/1/groups/1/edit
   def edit
     breadcrumb
-    add_breadcrumb "Edit"
+    add_breadcrumb t('actions.edit')
   end
 
   # POST /websites/1/groups or /websites/1/groups.json
@@ -59,7 +59,7 @@ class Websites::GroupsController < Websites::ApplicationController
         format.html {
           render :edit, status: :unprocessable_content
           breadcrumb
-          add_breadcrumb "Edit"
+          add_breadcrumb t('actions.edit')
         }
         format.json { render json: @group.errors, status: :unprocessable_content }
       end
@@ -70,7 +70,7 @@ class Websites::GroupsController < Websites::ApplicationController
   def select_pages
     load_select_pages_variables
     breadcrumb
-    add_breadcrumb "Select pages"
+    add_breadcrumb t('actions.select_pages')
   end
 
   # POST /websites/1/groups/1/select_pages
@@ -85,7 +85,7 @@ class Websites::GroupsController < Websites::ApplicationController
           load_select_pages_variables
           render :select_pages, status: :unprocessable_content
           breadcrumb
-          add_breadcrumb "Select pages"
+          add_breadcrumb t('actions.select_pages')
         }
         format.json { render json: @group.errors, status: :unprocessable_content }
       end
@@ -122,12 +122,12 @@ class Websites::GroupsController < Websites::ApplicationController
 
   def breadcrumb
     super
-    add_breadcrumb "Groups", website_groups_path
+    add_breadcrumb Website::Group.model_name.human(count: 2), website_groups_path
     if @group
       if @group.persisted?
         add_breadcrumb @group, @group
       else
-        add_breadcrumb "Create"
+        add_breadcrumb t('actions.create')
       end
     end
   end

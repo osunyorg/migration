@@ -1,17 +1,17 @@
 <% content_for :title, @page %>
 
 <p>
-  <strong>URL:</strong>
-  <%= link_to @page, @page.url, target: :_blank %>
+  <strong><%= Website::Page.human_attribute_name(:url) %></strong>
+  <%= link_to @page.url, @page.url, target: :_blank %>
 </p>
 
 <p>
-  <strong>Group:</strong>
+  <strong><%= Website::Page.human_attribute_name(:group) %></strong>
   <%= link_to @page.group, @page.group if @page.group %>
 </p>
 
 <p>
-  <strong>Strategy:</strong>
+  <strong><%= Website::Page.human_attribute_name(:strategy) %></strong>
   <%= @page.strategy %>
 </p>
 
@@ -31,8 +31,14 @@
   </ul>
 <% end %>
 
-<div>
-  <%= link_to "Migrate", [:migrate, @page], class: "btn btn-primary" if @page.strategy %>
-  <%= link_to "Edit", [:edit, @page], class: "btn btn-primary" %>
-  <%= link_to "Destroy", @page, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+<div class="mb-5">
+  <%= link_to t('actions.migrate'), [:migrate, @page], class: "btn btn-primary" if @page.strategy %>
+  <%= link_to t('actions.edit'), [:edit, @page], class: "btn btn-primary" %>
+  <%= link_to t('actions.delete'), @page, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+</div>
+
+<div class="card bg-light">
+  <div class="card-body">
+    <pre><%= @page.html %></pre>
+  </div>
 </div>

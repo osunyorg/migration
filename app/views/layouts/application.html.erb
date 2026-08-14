@@ -19,7 +19,7 @@
         <h1><%= yield :title %></h1>
       </div>
       <% if breadcrumbs.any? %>
-        <div class="mt-5 py-3 bg-light">
+        <div class="mt-5">
           <%= render_breadcrumbs builder: BreadcrumbsOnRailsBuilder %>
         </div>
       <% end %>

@@ -1,19 +1,15 @@
 <table class="table table-striped" id="pages">
   <thead>
     <tr>
-      <th>URL</th>
-      <th>&nbsp;</th>
+      <th><%= Website::Page.human_attribute_name(:path) %></th>
+      <th><%= Website::Page.human_attribute_name(:title) %></th>
     </tr>
   </thead>
   <tbody>
     <% pages.each do |page| %>
       <tr>
-        <td><%= link_to page, [page, website_id: page.website_id] %></td>
-        <td>
-          <%= link_to "View on website", page.url, target: :_blank, class: "btn btn-dark btn-sm" %>
-          <%= link_to "Edit", [:edit, page, { website_id: page.website_id }], class: "btn btn-primary btn-sm" %>
-          <%= link_to "Destroy", [page, { website_id: page.website_id }], method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Are you sure?" } %>
-        </td>
+        <td><%= link_to page, [page, website_id: page.website_id], class: 'text-decoration-none' %></td>
+        <td class="small"><%= page.title %></td>
       </tr>
     <% end %>
   </tbody>

@@ -23,7 +23,7 @@ class WebsitesController < ApplicationController
   # GET /websites/1/edit
   def edit
     breadcrumb
-    add_breadcrumb "Edit"
+    add_breadcrumb t('actions.edit')
   end
 
   # POST /websites or /websites.json
@@ -54,7 +54,7 @@ class WebsitesController < ApplicationController
         format.html {
           render :edit, status: :unprocessable_content
           breadcrumb
-          add_breadcrumb "Edit"
+          add_breadcrumb t('actions.edit')
         }
         format.json { render json: @website.errors, status: :unprocessable_content }
       end
@@ -91,12 +91,12 @@ class WebsitesController < ApplicationController
 
   def breadcrumb
     super
-    add_breadcrumb "Websites", websites_path
+    add_breadcrumb Website.model_name.human(count: 2), websites_path
     if @website
       if @website.persisted?
         add_breadcrumb @website, @website
       else
-        add_breadcrumb "Create"
+        add_breadcrumb t('actions.create')
       end
     end
   end

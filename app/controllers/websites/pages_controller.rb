@@ -15,7 +15,7 @@ class Websites::PagesController < Websites::ApplicationController
   def migrate
     @migration = @page.migrate!
     breadcrumb
-    add_breadcrumb 'Migration'
+    add_breadcrumb t('actions.migrate')
   end
 
   # GET /websites/1/pages/new
@@ -27,7 +27,7 @@ class Websites::PagesController < Websites::ApplicationController
   # GET /websites/1/pages/1/edit
   def edit
     breadcrumb
-    add_breadcrumb "Edit"
+    add_breadcrumb t('actions.edit')
   end
 
   # POST /websites/1/pages or /websites/1/pages.json
@@ -58,7 +58,7 @@ class Websites::PagesController < Websites::ApplicationController
         format.html {
           render :edit, status: :unprocessable_content
           breadcrumb
-          add_breadcrumb "Edit"
+          add_breadcrumb t('actions.edit')
         }
         format.json { render json: @page.errors, status: :unprocessable_content }
       end
@@ -88,12 +88,12 @@ class Websites::PagesController < Websites::ApplicationController
 
   def breadcrumb
     super
-    add_breadcrumb "Pages", website_pages_path
+    add_breadcrumb Website::Page.model_name.human(count: 2), website_pages_path
     if @page
       if @page.persisted?
         add_breadcrumb @page, @page
       else
-        add_breadcrumb "Create"
+        add_breadcrumb t('actions.create')
       end
     end
   end

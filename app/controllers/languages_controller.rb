@@ -21,7 +21,7 @@ class LanguagesController < ApplicationController
   # GET /languages/1/edit
   def edit
     breadcrumb
-    add_breadcrumb "Edit"
+    add_breadcrumb t('actions.edit')
   end
 
   # POST /languages or /languages.json
@@ -52,7 +52,7 @@ class LanguagesController < ApplicationController
         format.html {
           render :edit, status: :unprocessable_content
           breadcrumb
-          add_breadcrumb "Edit"
+          add_breadcrumb t('actions.edit')
         }
         format.json { render json: @language.errors, status: :unprocessable_content }
       end
@@ -83,12 +83,12 @@ class LanguagesController < ApplicationController
 
   def breadcrumb
     super
-    add_breadcrumb "Languages", languages_path
+    add_breadcrumb Language.model_name.human(count: 2), languages_path
     if @language
       if @language.persisted?
         add_breadcrumb @language, @language
       else
-        add_breadcrumb "Create"
+        add_breadcrumb t('actions.create')
       end
     end
   end

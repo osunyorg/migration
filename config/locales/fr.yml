@@ -1,4 +1,49 @@
 fr:
+  activerecord:
+    attributes:
+      language:
+        name: Nom
+        iso_code: Code ISO
+      website:
+        name: Nom
+        url: URL
+        languages: Langues
+        default_language: Langue par défaut
+      website/group:
+        name: Nom
+        strategy: Stratégie
+        strategy_klass: Stratégie
+      website/page:
+        group: Groupe
+        language: Langue
+        parent: Parent
+        path: Chemin
+        strategy: Stratégie
+        title: Titre
+        url: URL
+    models:
+      language:
+        one: Langue
+        other: Langues
+      website:
+        one: Site
+        other: Sites
+      website/group:
+        one: Groupe
+        other: Groupes
+      website/page:
+        one: Page
+        other: Pages
+  actions:
+    crawl: Indexer
+    create: Créer
+    delete: Supprimer
+    edit: Modifier
+    migrate: Migrer
+    open: Ouvrir
+    read: Lire
+    save: Enregistrer
+    select_pages: Sélectionner les pages
   home: 
     h1: Bienvenue !
     breadcrumb: Accueil
