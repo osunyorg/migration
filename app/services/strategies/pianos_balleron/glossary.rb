@@ -1,5 +1,12 @@
 class Strategies::PianosBalleron::Glossary < Strategies::Base
 
+  def hint
+    "<p>Dans les réglages JSON, indiquer la page du lexique</p>
+<pre>{
+  \"parent\": \"UUID\"
+}</pre>"
+  end
+
   def apply_to_page
     if title.empty?
       log 'Le titre est vide, on passe'
@@ -38,7 +45,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
   def json(page)
     {
       migration_identifier: root_page_identifier,
-      parent_id: group.osuny_target_id,
+      parent_id: parent_id,
       localizations: {
         "#{page.language.osuny_iso_code}": {
           title: title,
@@ -60,6 +67,10 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
         }
       }
     }
+  end
+
+  def parent_id
+    setting(:parent)
   end
 
   def chapter

@@ -31,15 +31,26 @@ class Strategies::Base
     @logs ||= ''
   end
 
+  def hint
+    ''
+  end
+
   def to_s
     self.class
   end
 
   protected
 
-
   def log(message)
     logs << "#{message}\n"
+  end
+
+  def setting(key)
+    settings[key.to_s]
+  end
+
+  def settings
+    @settings ||= JSON.parse(group.settings)
   end
 
   def apply_to_page

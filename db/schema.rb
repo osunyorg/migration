@@ -146,6 +146,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_140603) do
     t.datetime "created_at", null: false
     t.string "name"
     t.string "osuny_target_id"
+    t.jsonb "settings", default: {}, null: false
     t.string "strategy_klass"
     t.datetime "updated_at", null: false
     t.uuid "website_id", null: false

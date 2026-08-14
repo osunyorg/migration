@@ -12,6 +12,7 @@ fr:
       website/group:
         name: Nom
         pages: Pages
+        settings: Réglages JSON
         strategy: Stratégie
         strategy_klass: Stratégie
         osuny_target_id: Identifiant de la cible dans osuny

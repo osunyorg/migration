@@ -1,5 +1,13 @@
 class Strategies::PianosBalleron::Pianos < Strategies::Base
 
+  def hint
+    "<p>Dans les réglages JSON, indiquer les catégories</p>
+<pre>{
+  \"category_selling\": \"UUID\",
+  \"category_sold\": \"UUID\"
+}</pre>"
+  end
+
   def apply_to_page
     if title.empty?
       log 'Le titre est vide, on passe'
@@ -33,6 +41,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
     {
       migration_identifier: root_page_identifier,
       year: project_year,
+      category_ids: category_ids,
       localizations: {
         "#{page.language.osuny_iso_code}": {
           title: title,
@@ -96,6 +105,19 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   def featured_image_url
     page.website.url +
     page.nokogiri.css('.produit_background img')[0]['src']
+  end
+
+  # Catégorie
+
+  def sold?
+    page.html.include?('Piano vendu') ||
+    page.html.include?('Piano sold')
+  end
+
+  def category_ids
+    [
+      (sold? ? setting(:category_sold) : setting(:category_selling))
+    ]
   end
 
   # Tableau
