@@ -10,19 +10,25 @@
 </div>
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-6">
     <p class="form-label"><%= Website::Page.human_attribute_name(:title) %></p>
     <p><%= @page.title %></p>
   </div>
-
-  <div class="col-md-3">
+  <div class="col-md-6">
     <p class="form-label"><%= Website::Page.human_attribute_name(:url) %></p>
     <p><%= link_to @page.url, @page.url, target: :_blank %></p>
   </div>
+</div>
 
+<div class="row">
   <div class="col-md-3">
     <p class="form-label"><%= Website::Page.human_attribute_name(:language) %></p>
     <p><%= @page.language %></p>
+  </div>
+
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Page.human_attribute_name(:crawled_at) %></p>
+    <p><%= l @page.crawled_at %></p>
   </div>
 
   <div class="col-md-3">
@@ -31,23 +37,9 @@
   </div>
 
   <div class="col-md-3">
-    <p class="form-label"><%= Website::Page.human_attribute_name(:crawled_at) %></p>
-    <p><%= l @page.crawled_at %></p>
+    <p class="form-label"><%= Website::Page.human_attribute_name(:migrated_at) %></p>
+    <p><%= l @page.migrated_at if @page.migrated_at %></p>
   </div>
-
-  <% if @page.migrated_at %>
-    <div class="col-md-3">
-      <p class="form-label"><%= Website::Page.human_attribute_name(:migrated_at) %></p>
-      <p><%= l @page.migrated_at %></p>
-  </div>
-  <% end %>
-
-  <% if @page.strategy %>
-    <div class="col-md-3">
-      <p class="form-label"><%= Website::Page.human_attribute_name(:strategy) %></p>
-      <p><%= @page.strategy %></p>
-   </div>
- <% end %>
 </div>
 
 <% if @page.parent %>

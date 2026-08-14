@@ -2,7 +2,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
 
   def apply_to_page
     if title.empty?
-      log 'Empty title, do nothing'
+      log 'Le titre est vide, on passe'
       return
     end
     log "---"
@@ -24,7 +24,6 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
         return_type: 'Object'
       }
     )
-    page.migrated!
     rescue error
       log error
     end
@@ -61,18 +60,6 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
         }
       }
     }
-  end
-
-  def root_page_identifier
-    page.root? ? page.migration_identifier : page.parent.migration_identifier
-  end
-
-  def title
-    page.nokogiri.css('h1').first.text
-  end
-
-  def meta_description
-    page.nokogiri.css('meta[name="description"]').first['content']
   end
 
   def chapter

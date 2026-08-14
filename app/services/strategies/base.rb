@@ -15,7 +15,6 @@ class Strategies::Base
     log "Migrate group #{group}"
     log self.to_s
     apply_to_group
-    self
   end
 
   def migrate_page!(page, dry_run: false)
@@ -25,7 +24,7 @@ class Strategies::Base
     log "Migrate page #{page}"
     log self.to_s
     apply_to_page
-    self
+    page.migrated!
   end
 
   def logs
@@ -37,6 +36,7 @@ class Strategies::Base
   end
 
   protected
+
 
   def log(message)
     logs << "#{message}\n"
@@ -53,4 +53,17 @@ class Strategies::Base
     end
   end
 
+  # Informations par défaut
+
+  def root_page_identifier
+    page.root? ? page.migration_identifier : page.parent.migration_identifier
+  end
+
+  def title
+    page.nokogiri.css('h1').first.text
+  end
+
+  def meta_description
+    page.nokogiri.css('meta[name="description"]').first['content']
+  end
 end
