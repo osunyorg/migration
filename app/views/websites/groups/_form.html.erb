@@ -5,7 +5,9 @@
   <div class="form-inputs row">
     <div class="col-md-6">
       <%= f.input :name %>
-      <%= f.input :strategy_klass %>
+      <%= f.input :strategy_klass,
+                  as: :select,
+                  collection: @group.website.available_strategies %>
     </div>
   </div>
 

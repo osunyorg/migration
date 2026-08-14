@@ -1,5 +1,5 @@
 class WebsitesController < ApplicationController
-  before_action :set_website, only: %i[ show edit update destroy ]
+  before_action :set_website, only: %i[ show edit update crawl destroy ]
 
   # GET /websites or /websites.json
   def index
@@ -59,6 +59,12 @@ class WebsitesController < ApplicationController
         format.json { render json: @website.errors, status: :unprocessable_content }
       end
     end
+  end
+
+  def crawl
+    @crawler = Crawler.new(@website)
+    @crawler.crawl
+    # TODO vue correcte des logs, pas en put, ou mieux, job avec vue des logs
   end
 
   # DELETE /websites/1 or /websites/1.json
