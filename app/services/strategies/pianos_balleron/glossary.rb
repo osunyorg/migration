@@ -19,9 +19,8 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
     log "Parent ”#{parent_id}”"
     json = json(@page)
     log "Données JSON"
-    log JSON.pretty_generate(json)
+    log json
     return if dry_run
-    begin
     osuny_api.communication_websites_website_id_pages_upsert_post_with_http_info(
       website.osuny_website_id,
       {
@@ -31,9 +30,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
         return_type: 'Object'
       }
     )
-    rescue error
-      log error
-    end
+    page.migrated!
   end
 
   protected

@@ -42,7 +42,13 @@ class Strategies::Base
   protected
 
   def log(message)
-    logs << "#{message}\n"
+    return if message.nil?
+    if message.is_a?(Hash)
+      logs << JSON.pretty_generate(message)
+    else
+      logs << message.to_s
+    end
+    logs << "\n"
   end
 
   def setting(key)

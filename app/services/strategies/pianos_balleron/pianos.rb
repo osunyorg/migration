@@ -17,7 +17,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
     log "Titre “#{title}”"
     json = json(@page)
     log "Données JSON"
-    log JSON.pretty_generate(json)
+    log json
     return if dry_run
     osuny_api.communication_websites_website_id_portfolio_projects_upsert_post_with_http_info(
       website.osuny_website_id,
