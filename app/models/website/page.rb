@@ -3,7 +3,6 @@
 # Table name: website_pages
 #
 #  id          :uuid             not null, primary key
-#  body        :text
 #  crawled_at  :datetime
 #  html        :text
 #  migrated_at :datetime
