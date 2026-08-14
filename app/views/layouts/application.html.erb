@@ -24,8 +24,10 @@
 
   <body>
     <%= render 'header' %>
-    <%= render_breadcrumbs builder: BreadcrumbsOnRailsBuilder %>
-    <main class="container-fluid">
+    <div class="mt-5">
+      <%= render_breadcrumbs builder: BreadcrumbsOnRailsBuilder %>
+    </div>
+    <main class="container-fluid mt-5">
       <%= render 'notice' %>
       <%= yield %>
     </main>
