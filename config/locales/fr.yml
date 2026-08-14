@@ -1,2 +1,4 @@
 fr:
-  home: Accueil
+  home: 
+    h1: Bienvenue !
+    breadcrumb: Accueil

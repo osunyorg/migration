@@ -1,0 +1,13 @@
+<div clas="row">
+  <% websites.each do |website| %>
+    <div class="col-lg-3 col-md-4 mb-2">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="h4"><%= website %></h2>
+          <p class="text-muted"><%= website.url %></p>
+          <%= link_to "View", website, class: "btn btn-primary btn-sm stretched-link" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

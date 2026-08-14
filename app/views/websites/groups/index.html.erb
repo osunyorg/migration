@@ -1,7 +1,5 @@
 <% content_for :title, "Groups" %>
 
-<h1>Groups</h1>
-
 <%= link_to "Create", new_website_group_path, class: "btn btn-primary mb-3" %>
 
 <%= render "websites/groups/list", groups: @groups if @groups.any? %>

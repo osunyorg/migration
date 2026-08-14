@@ -1,7 +1,5 @@
 <% content_for :title, "Pages" %>
 
-<h1>Pages</h1>
-
 <%= link_to "Create", new_website_page_path, class: "btn btn-primary" %>
 
 <%= render "websites/pages/list", pages: @pages if @pages.any? %>
