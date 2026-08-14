@@ -44,6 +44,7 @@ class Website::Page < ApplicationRecord
   scope :search, -> (query) { where("url ILIKE ?", "%#{sanitize_sql_like(query)}%") }
   scope :ordered_by_url, -> { order(:url) }
   scope :ordered, -> { ordered_by_url }
+  scope :migrated, -> { where.not(migrated_at: nil) }
 
   def migration_identifier
     id

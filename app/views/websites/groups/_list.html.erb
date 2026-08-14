@@ -2,16 +2,20 @@
   <thead>
     <tr>
       <th><%= Website::Group.human_attribute_name(:name) %></th>
-      <th><%= Website::Group.human_attribute_name(:pages) %></th>
       <th><%= Website::Group.human_attribute_name(:strategy) %></th>
+      <th><%= Website::Group.human_attribute_name(:pages) %></th>
+      <th>Multiligues</th>
+      <th>Migrées</th>
     </tr>
   </thead>
   <tbody>
     <% groups.each do |group| %>
       <tr>
         <td><%= link_to group, website_group_path(group, { website_id: group.website_id }), class: 'text-decoration-none' %></td>
-        <td><%= group.pages.size %> <%= Website::Page.model_name.human(count: 2).downcase %></td>
         <td><%= group.strategy %></td>
+        <td><%= group.pages.root.size %></td>
+        <td><%= group.pages.size %></td>
+        <td><%= group.pages.migrated.size %></td>
       </tr>
     <% end %>
   </tbody>
