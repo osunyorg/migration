@@ -1,10 +1,14 @@
 class Strategies::PianosBalleron::Glossary < Strategies::Base
 
   def hint
-    "<p>Dans les réglages JSON, indiquer la page du lexique</p>
-<pre>{
-  \"parent\": \"UUID\"
-}</pre>"
+    <<~HTML
+      <p>Dans les réglages JSON, indiquer la page du lexique</p>
+      <pre>
+      {
+        "parent": "UUID"
+      }
+      </pre>
+    HTML
   end
 
   def apply_to_page
