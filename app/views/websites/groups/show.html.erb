@@ -1,18 +1,18 @@
 <% content_for :title, @group %>
 
 <p>
-  <strong>Strategy:</strong>
+  <strong><%= Website::Group.human_attribute_name(:strategy) %></strong>
   <%= @group.strategy.to_s %>
 </p>
 
 <div class="mb-4">
-  <%= link_to "Migrate", [:migrate, @group], class: "btn btn-primary" if @group.strategy %>
-  <%= link_to "Edit", [:edit, @group], class: "btn btn-primary" %>
-  <%= link_to "Destroy", @group, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+  <%= link_to t('actions.migrate'), [:migrate, @group], class: "btn btn-primary" if @group.strategy %>
+  <%= link_to t('actions.edit'), [:edit, @group], class: "btn btn-primary" %>
+  <%= link_to t('actions.delete'), @group, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>
 
-<h2>Root pages (<%= @root_pages.size %>)</h2>
-<p>Total: <%= @group.pages.size %></p>
-<%= link_to "Select Pages", select_pages_website_group_path(@group, website_id: @website.id), class: "btn btn-primary mb-3" %>
+<h2><%= Website::Page.model_name.human(count: 2) %></h2>
+<p><%= @group.pages.size %></p>
+<%= link_to t('actions.select_pages'), select_pages_website_group_path(@group, website_id: @website.id), class: "btn btn-primary mb-3" %>
 
 <%= render "websites/pages/list", pages: @root_pages if @root_pages.any? %>

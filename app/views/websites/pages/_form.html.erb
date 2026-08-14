@@ -2,19 +2,15 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs row">
-    <div class="col-md-4">
-      <%= f.input :title %>
-      <%= f.input :url %>
-      <%= f.association :language, collection: @website.languages %>
-    </div>
-    <div class="col-md-4">
-      <%= f.association :group, collection: @website.groups %>
-      <%= f.association :parent, collection: @website.pages.where.not(id: @page.id) %>
-    </div>
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :url %>
+    <%= f.association :language, collection: @website.languages %>
+    <%= f.association :group, collection: @website.groups %>
+    <%= f.association :parent, collection: @website.pages.where.not(id: @page.id) %>
   </div>
 
   <div class="form-actions">
-    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= f.submit t('actions.save'), class: "btn btn-primary" %>
   </div>
 <% end %>

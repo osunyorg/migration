@@ -61,8 +61,12 @@ class Website::Page < ApplicationRecord
     !parent_id
   end
 
+  def path
+    url.sub(website.url, '')
+  end
+
   def to_s
-    url
+    path
   end
 
   protected

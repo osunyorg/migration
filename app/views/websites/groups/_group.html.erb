@@ -1,7 +1,8 @@
 <div class="card">
   <div class="card-body">
-    <h5 class="card-title"><%= link_to group, website_group_path(group, { website_id: group.website_id }) %></h5>
-    <p><span class="badge bg-secondary"><%= group.strategy_klass.presence || "No strategy" %></span></p>
-    <p><%= group.pages.root.size %> root pages (total: <%= group.pages.size %>)</p>
+    <h2 class="card-title">
+      <%= link_to group, website_group_path(group, { website_id: group.website_id }), class: 'text-decoration-none' %>
+    </h2>
+    <p><%= group.pages.size %> <%= Website::Page.model_name.human(count: 2).downcase %></p>
   </div>
 </div>

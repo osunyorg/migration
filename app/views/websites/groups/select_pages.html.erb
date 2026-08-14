@@ -1,6 +1,4 @@
-<% content_for :title, "Select pages" %>
-
-<h1>Select pages</h1>
+<% content_for :title, t('actions.select_pages') %>
 
 <%= form_tag nil, method: :get do %>
   <div class="row">
@@ -20,7 +18,7 @@
   <div class="actions mb-3">
     <%= button_tag "Select all", type: "button", class: "btn btn-secondary js-select-all--select-button" %>
     <%= button_tag "Unselect all", type: "button", class: "btn btn-secondary js-select-all--unselect-button" %>
-    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= f.submit t('actions.save'), class: "btn btn-primary" %>
   </div>
 
   <%= hidden_field_tag "query", params[:query], id: nil %>
@@ -62,6 +60,6 @@
   <div class="actions">
     <%= button_tag "Select all", type: "button", class: "btn btn-secondary js-select-all--select-button" %>
     <%= button_tag "Unselect all", type: "button", class: "btn btn-secondary js-select-all--unselect-button" %>
-    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= f.submit t('actions.save'), class: "btn btn-primary" %>
   </div>
 <% end %>

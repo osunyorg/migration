@@ -2,18 +2,14 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs row">
-    <div class="col-md-6">
-      <%= f.input :name %>
-      <%= f.input :url %>
-    </div>
-    <div class="col-md-6">
-      <%= f.association :languages, as: :check_boxes %>
-      <%= f.association :default_language %>
-    </div>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :url %>
+    <%= f.association :default_language, include_blank: false %>
+    <%= f.association :languages, as: :check_boxes %>
   </div>
 
   <div class="form-actions">
-    <%= f.submit "Submit", class: "btn btn-primary" %>
+    <%= f.submit t('actions.save'), class: "btn btn-primary" %>
   </div>
 <% end %>
