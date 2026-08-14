@@ -66,6 +66,10 @@ class Website::Page < ApplicationRecord
     @nokogiri ||= Nokogiri::HTML(html)
   end
 
+  def migrated!
+    self.update_column :migrated_at, Time.current
+  end
+
   def to_s
     path
   end

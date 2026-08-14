@@ -90,7 +90,12 @@ class Websites::PagesController < Websites::ApplicationController
 
   def breadcrumb
     super
-    add_breadcrumb Website::Page.model_name.human(count: 2), website_pages_path
+    if @page.group.present?
+      add_breadcrumb Website::Group.model_name.human(count: 2), website_groups_path
+      add_breadcrumb @page.group, @page.group
+    else
+      add_breadcrumb Website::Page.model_name.human(count: 2), website_pages_path
+    end
     if @page
       if @page.persisted?
         add_breadcrumb @page, @page

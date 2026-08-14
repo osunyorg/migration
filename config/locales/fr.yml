@@ -20,8 +20,10 @@ fr:
         osuny_target_id: Identifiant de la cible dans osuny
       website/page:
         children: Versions dans d'autres langues
+        crawled_at: Date d'indexation
         group: Groupe
         language: Langue
+        migrated_at: Date de migration
         parent: Page principale
         path: Chemin
         strategy: Stratégie

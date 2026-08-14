@@ -1,8 +1,12 @@
 class Strategies::PianosBalleron::Glossary < Strategies::Base
 
   def apply_to_page
+    if title.empty?
+      log 'Empty title, do nothing'
+      return
+    end
     log "---"
-    log "Titre “#{page.title}”"
+    log "Titre “#{title}”"
     log "Identifiant de migration ”#{page.migration_identifier}”"
     log "Site osuny ”#{website.osuny_website_id}”"
     log "Cible osuny ”#{group.osuny_target_id}”"
@@ -20,6 +24,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
         return_type: 'Object'
       }
     )
+    page.migrated!
     rescue error
       log error
     end

@@ -3,15 +3,21 @@
     <tr>
       <th><%= Website::Page.human_attribute_name(:path) %></th>
       <th><%= Website::Page.human_attribute_name(:title) %></th>
-      <th><%= Language.model_name.human %></th>
+      <th><%= Website::Page.human_attribute_name(:language) %></th>
+      <th><%= Website::Page.human_attribute_name(:group) %></th>
+      <th><%= Website::Page.human_attribute_name(:crawled_at) %></th>
+      <th><%= Website::Page.human_attribute_name(:migrated_at) %></th>
     </tr>
   </thead>
   <tbody>
     <% pages.each do |page| %>
       <tr>
         <td><%= link_to page, [page, website_id: page.website_id], class: 'text-decoration-none' %></td>
-        <td class="small"><%= page.title %></td>
-        <td><%= page.language %></td>
+        <td class="small"><%= page.title.truncate(50) %></td>
+        <td class="small"><%= page.language %></td>
+        <td class="small"><%= link_to page.group, page.group if page.group %></td>
+        <td class="small"><%= l page.crawled_at %></td>
+        <td class="small"><%= l page.migrated_at if page.migrated_at%></td>
       </tr>
     <% end %>
   </tbody>
