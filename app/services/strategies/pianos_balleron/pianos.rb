@@ -66,7 +66,10 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def piano_year
-    page.nokogiri.css('h2').first.text.gsub('Piano de ', '')
+    page.nokogiri.css('h2').first.text
+      .gsub('Piano de ', '')
+      .gsub('Piano of ', '')
+      .gsub('のピアノ ', '')
   end
 
   def project_year
@@ -75,12 +78,14 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def subtitle
-    piano_reference
+    piano_reference || ''
   end
 
   # <br><em><b>Référence :</b> R016</em>
   def piano_reference
-    extract_between '<em><b>Référence :</b>', '</em>'
+    extract_between('<em><b>Référence :</b>', '</em>') ||
+    extract_between('<em><b>Reference :</b>', '</em>') ||
+    extract_between('<em><b>参照 :</b>', '</em>') 
   end
 
   def summary
@@ -113,8 +118,13 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
     page.nokogiri.css('.produit_fiche em').each do |em|
       next if em.text.blank?
       key = em.children.first.text.gsub(' :', '').lstrip.rstrip
-      next if key.in?(['Référence', 'Description', 'Vidéo'])
+      next if key.in?([
+        'Référence', 'Reference', 
+        'Description',
+        'Vidéo'
+      ])
       value = em.children.last.text.lstrip.rstrip
+      next if value.empty?
       @elements << { cells:[key, value] }
     end
     @elements
@@ -143,7 +153,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
       image_url = img[:src]
       # TODO get image id
       @elements << {
-        url: image_url,
+        image_url: image_url,
         image: '',
         alt: '',
         credit: '<p>Pianos Balleron</p>',

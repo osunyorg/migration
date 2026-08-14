@@ -64,6 +64,8 @@ class Strategies::Base
   end
 
   def meta_description
-    page.nokogiri.css('meta[name="description"]').first['content']
+    element = page.nokogiri.css('meta[name="description"]').first
+    return if element.nil?
+    element['content']
   end
 end
