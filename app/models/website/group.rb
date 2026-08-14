@@ -26,12 +26,18 @@ class Website::Group < ApplicationRecord
   end
 
   def strategy
-    return if strategy_klass.blank?
-    @strategy ||= "Strategies::#{website.to_camel}::#{strategy_klass}".safe_constantize.new
+    return if strategy_klass.blank? || strategy_class.nil?
+    @strategy ||= strategy_class.new
   end
 
   def to_s
     name
+  end
+
+  protected
+
+  def strategy_class
+    "Strategies::#{website.to_camel}::#{strategy_klass}".safe_constantize
   end
 
 end
