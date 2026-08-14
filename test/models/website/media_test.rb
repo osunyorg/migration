@@ -4,13 +4,15 @@ require "test_helper"
 #
 # Table name: website_medias
 #
-#  id                           :uuid             not null, primary key
-#  url                          :string
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  osuny_active_storage_blob_id :string
-#  osuny_communication_media_id :string
-#  website_id                   :uuid             not null
+#  id                                  :uuid             not null, primary key
+#  osuny_active_storage_blob_filename  :string
+#  url                                 :string
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
+#  osuny_active_storage_blob_id        :string
+#  osuny_active_storage_blob_signed_id :string
+#  osuny_communication_media_id        :string
+#  website_id                          :uuid             not null
 #
 # Indexes
 #
