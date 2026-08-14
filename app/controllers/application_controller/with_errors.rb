@@ -14,10 +14,6 @@ module ApplicationController::WithErrors
       render_not_found
     end
 
-    rescue_from ActiveStorage::FileNotFoundError do |exception|
-      render_not_found
-    end
-
     def raise_404_unless(condition)
       raise ActionController::RoutingError.new('Not Found') unless condition
     end
