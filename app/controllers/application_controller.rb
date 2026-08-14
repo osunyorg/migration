@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   include WithErrors
 
   def breadcrumb
-    add_breadcrumb "Osuny Migrator", root_path
+    add_breadcrumb t('home.breadcrumb'), root_path
   end
 end

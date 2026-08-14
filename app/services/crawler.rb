@@ -27,17 +27,17 @@ class Crawler
     puts "Crawling #{uri.to_s} in 1 second."
     sleep 1
 
-    body = uri.open.read
+    html = uri.open.read
     language_iso_code = uri.path.split('/')[1]
     language = default_language.iso_code == language_iso_code ? default_language : website.languages.find_by(iso_code: language_iso_code)
     return if language.nil?
 
-    parsed_body = Nokogiri::HTML5(body)
-    title = parsed_body.title.strip
+    parsed_html = Nokogiri::HTML5(html)
+    title = parsed_html.title.strip
 
     page.assign_attributes(
       title: title,
-      body: body,
+      html: html,
       language_id: language.id,
       crawled_at: Time.current
     )
@@ -74,14 +74,14 @@ class Crawler
     puts "Crawling #{uri.to_s} in 1 second."
     sleep 1
 
-    body = uri.open.read
-    parsed_body = Nokogiri::HTML5(body)
-    title = parsed_body.title.strip
+    html = uri.open.read
+    parsed_html = Nokogiri::HTML5(html)
+    title = parsed_html.title.strip
 
     translation_page = website.pages.where(url: uri.to_s).first_or_initialize
     translation_page.assign_attributes(
       title: title.presence || "-",
-      body: body,
+      html: html,
       language_id: language.id,
       parent: page,
       crawled_at: Time.current

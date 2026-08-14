@@ -27,8 +27,24 @@ class Website < ApplicationRecord
   validates :name, :url, presence: true
   validates :default_language_id, inclusion: { in: ->(website) { website.language_ids } }, allow_nil: true
 
+  def available_strategies
+    strategy_module ? strategy_module.constants : []
+  end
+
+  # Pianos Balleron -> PianosBalleron
+  def to_camel
+    @camelized ||= to_s.parameterize.underscore.camelize
+  end
+  
   def to_s
     name
   end
 
+  protected
+
+  def strategy_module
+    return unless Strategies.constants.include?(to_camel.to_sym)
+    "Strategies::#{to_camel}".safe_constantize
+  end
+  
 end

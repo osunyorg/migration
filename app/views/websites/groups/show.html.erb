@@ -1,8 +1,12 @@
 <% content_for :title, @group %>
 
-<h1><%= @group %></h1>
+<p>
+  <strong>Strategy:</strong>
+  <%= @group.strategy.to_s %>
+</p>
 
 <div class="mb-4">
+  <%= link_to "Migrate", [:migrate, @group], class: "btn btn-primary" if @group.strategy %>
   <%= link_to "Edit", [:edit, @group], class: "btn btn-primary" %>
   <%= link_to "Destroy", @group, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>

@@ -1,5 +1,5 @@
 class Websites::PagesController < Websites::ApplicationController
-  before_action :set_page, only: %i[ show edit update destroy ]
+  before_action :set_page, only: %i[ show migrate edit update destroy ]
 
   # GET /websites/1/pages or /websites/1/pages.json
   def index
@@ -10,6 +10,12 @@ class Websites::PagesController < Websites::ApplicationController
   # GET /websites/1/pages/1 or /websites/1/pages/1.json
   def show
     breadcrumb
+  end
+
+  def migrate
+    @migration = @page.migrate!
+    breadcrumb
+    add_breadcrumb 'Migration'
   end
 
   # GET /websites/1/pages/new

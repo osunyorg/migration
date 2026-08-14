@@ -3,8 +3,8 @@
 # Table name: website_pages
 #
 #  id          :uuid             not null, primary key
-#  body        :text
 #  crawled_at  :datetime
+#  html        :text
 #  migrated_at :datetime
 #  title       :string
 #  url         :string
@@ -45,8 +45,16 @@ class Website::Page < ApplicationRecord
   scope :ordered_by_url, -> { order(:url) }
 
   def migrate!
-    return unless group && group.strategy_klass.present?
-    strategy_klass.safe_constantize.new(self).migrate!
+    strategy.migrate_page!(self)
+  end
+
+  def migration_identifier
+    id
+  end
+
+  def strategy
+    return unless group
+    @strategy ||= group.strategy
   end
 
   def root?

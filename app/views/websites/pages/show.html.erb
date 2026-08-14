@@ -1,10 +1,18 @@
 <% content_for :title, @page %>
 
-<h1><%= @page %></h1>
-
 <p>
   <strong>URL:</strong>
   <%= link_to @page, @page.url, target: :_blank %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= link_to @page.group, @page.group if @page.group %>
+</p>
+
+<p>
+  <strong>Strategy:</strong>
+  <%= @page.strategy %>
 </p>
 
 <% if @page.parent %>
@@ -24,6 +32,7 @@
 <% end %>
 
 <div>
+  <%= link_to "Migrate", [:migrate, @page], class: "btn btn-primary" if @page.strategy %>
   <%= link_to "Edit", [:edit, @page], class: "btn btn-primary" %>
   <%= link_to "Destroy", @page, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>

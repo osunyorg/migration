@@ -1,5 +1,5 @@
 class Websites::GroupsController < Websites::ApplicationController
-  before_action :set_group, only: %i[ show edit update select_pages do_select_pages destroy ]
+  before_action :set_group, only: %i[ show migrate edit update select_pages do_select_pages destroy ]
 
   # GET /websites/1/groups or /websites/1/groups.json
   def index
@@ -11,6 +11,12 @@ class Websites::GroupsController < Websites::ApplicationController
   def show
     @root_pages = @group.pages.root.ordered_by_url
     breadcrumb
+  end
+
+  def migrate
+    @migration = @group.migrate!
+    breadcrumb
+    add_breadcrumb 'Migration'
   end
 
   # GET /websites/1/groups/new
