@@ -41,6 +41,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
     {
       migration_identifier: root_page_identifier,
       year: project_year,
+      category_ids: category_ids,
       localizations: {
         "#{page.language.osuny_iso_code}": {
           title: title,
@@ -104,6 +105,19 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   def featured_image_url
     page.website.url +
     page.nokogiri.css('.produit_background img')[0]['src']
+  end
+
+  # Catégorie
+
+  def sold?
+    page.html.include?('Piano vendu') ||
+    page.html.include?('Piano sold')
+  end
+
+  def category_ids
+    [
+      (sold? ? setting(:category_sold) : setting(:category_selling))
+    ]
   end
 
   # Tableau
