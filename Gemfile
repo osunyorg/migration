@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "4.0.6"
+
 gem "activestorage-scaleway-service", "~> 1.1"
 gem "annotaterb", "~> 4.24"
 gem "autoprefixer-rails", "~> 10.4"
