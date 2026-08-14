@@ -29,7 +29,7 @@ class Website::Group < ApplicationRecord
 
   def strategy
     return if strategy_klass.blank? || strategy_class.nil?
-    @strategy ||= strategy_class.new
+    @strategy ||= strategy_class.new(website)
   end
 
   def to_s

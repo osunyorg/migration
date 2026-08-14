@@ -5,10 +5,13 @@ fr:
         name: Nom
         iso_code: Code ISO
       website:
-        name: Nom
-        url: URL
-        languages: Langues
         default_language: Langue par défaut
+        languages: Langues
+        name: Nom
+        osuny_api_key: Clé secrète de l'API osuny
+        osuny_host: Instance osuny
+        osuny_website_id: Identifiant du site osuny
+        url: URL
       website/group:
         name: Nom
         pages: Pages

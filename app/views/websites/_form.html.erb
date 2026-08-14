@@ -7,6 +7,9 @@
     <%= f.input :url %>
     <%= f.association :default_language, include_blank: false %>
     <%= f.association :languages, as: :check_boxes %>
+    <%= f.input :osuny_host %>
+    <%= f.input :osuny_api_key %>
+    <%= f.input :osuny_website_id %>
   </div>
 
   <div class="form-actions">

@@ -4,10 +4,13 @@
 #
 #  id                  :uuid             not null, primary key
 #  name                :string
+#  osuny_api_key       :string
+#  osuny_host          :string
 #  url                 :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  default_language_id :uuid
+#  osuny_website_id    :string
 #
 # Indexes
 #
@@ -36,6 +39,17 @@ class Website < ApplicationRecord
   # Pianos Balleron -> PianosBalleron
   def to_camel
     @camelized ||= to_s.parameterize.underscore.camelize
+  end
+
+  def osuny_api_configuration
+    return if osuny_host.blank? || osuny_api_key.blank?
+    @osuny_api_configuration ||= begin
+      config = OsunyApi::Configuration.new
+      config.api_key['X-Osuny-Token'] = osuny_api_key
+      config.host = osuny_host
+      config.base_path = '/api/osuny/v1'
+      config
+    end
   end
   
   def to_s

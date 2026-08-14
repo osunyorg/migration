@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_062159) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_14_084607) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -187,6 +187,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_062159) do
     t.datetime "created_at", null: false
     t.uuid "default_language_id"
     t.string "name"
+    t.string "osuny_api_key"
+    t.string "osuny_host"
+    t.string "osuny_website_id"
     t.datetime "updated_at", null: false
     t.string "url"
     t.index ["default_language_id"], name: "index_websites_on_default_language_id"

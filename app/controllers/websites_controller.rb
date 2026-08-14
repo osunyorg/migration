@@ -86,7 +86,11 @@ class WebsitesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def website_params
-    params.expect(website: [ :name, :url, :default_language_id, language_ids: [] ])
+    params.expect(website: [
+      :name, :url,
+      :osuny_host,:osuny_api_key, :osuny_website_id,
+      :default_language_id, language_ids: [] 
+    ])
   end
 
   def breadcrumb

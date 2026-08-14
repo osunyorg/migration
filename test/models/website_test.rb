@@ -6,10 +6,13 @@ require "test_helper"
 #
 #  id                  :uuid             not null, primary key
 #  name                :string
+#  osuny_api_key       :string
+#  osuny_host          :string
 #  url                 :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  default_language_id :uuid
+#  osuny_website_id    :string
 #
 # Indexes
 #
