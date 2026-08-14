@@ -1,0 +1,12 @@
+<% content_for :title, @media %>
+
+<div class="row mt-5">
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Media.human_attribute_name(:osuny_communication_media_id) %></p>
+    <p><%= @media.osuny_communication_media_id %></p>
+  </div>
+  <div class="col-md-3">
+    <p class="form-label"><%= Website::Media.human_attribute_name(:osuny_active_storage_blob_id) %></p>
+    <p><%= @media.osuny_active_storage_blob_id %></p>
+  </div>
+</div>

@@ -20,6 +20,10 @@ fr:
         iso_code: Code ISO
         osuny_iso_code: Code ISO (osuny)
         pages_count: Nombre de pages
+      website/media:
+        osuny_active_storage_blob_id: ID du blob Active Storage (osuny)
+        osuny_communication_media_id: ID du média (osuny)
+        url: URL
       website/page:
         children: Versions dans d'autres langues
         crawled_at: Date d'indexation
@@ -41,6 +45,9 @@ fr:
       website/language:
         one: Langue
         other: Langues
+      website/media:
+        one: Média
+        other: Médias
       website/page:
         one: Page
         other: Pages
@@ -55,7 +62,7 @@ fr:
     read: Lire
     save: Enregistrer
     select_pages: Sélectionner les pages
-  home: 
+  home:
     h1: Bienvenue !
     breadcrumb: Accueil
   title: migration
