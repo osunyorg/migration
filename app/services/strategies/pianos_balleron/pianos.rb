@@ -94,7 +94,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   def piano_reference
     extract_between('<em><b>Référence :</b>', '</em>') ||
     extract_between('<em><b>Reference :</b>', '</em>') ||
-    extract_between('<em><b>参照 :</b>', '</em>') 
+    extract_between('<em><b>参照 :</b>', '</em>')
   end
 
   def summary
@@ -141,7 +141,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
       next if em.text.blank?
       key = em.children.first.text.gsub(' :', '').lstrip.rstrip
       next if key.in?([
-        'Référence', 'Reference', 
+        'Référence', 'Reference',
         'Description',
         'Vidéo'
       ])
@@ -172,11 +172,20 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   def gallery_elements
     elements = []
     page.nokogiri.css('.produit_fiche img').each do |img|
-      image_url = img[:src]
-      # TODO get image id
+      image_relative_url = img[:src]
+      image_url = website.url + image_relative_url
+      media = get_media(image_url)
+      if media
+        image_data = {
+          id: media.osuny_active_storage_blob_id,
+          filename: media.osuny_active_storage_blob_filename,
+          signed_id: media.osuny_active_storage_blob_signed_id
+        }
+      else
+        image_data = { id: "NEW_MEDIA", filename: "...", signed_id: "..." }
+      end
       elements << {
-        image_url: image_url,
-        image: '',
+        image: image_data,
         alt: '',
         credit: '<p>Pianos Balleron</p>',
         text: ''
@@ -206,7 +215,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
     return if video_id.nil?
     "https://www.youtube.com/watch?v=#{video_id}"
   end
-  
+
   def video_id
     extract_between('"https://www.youtube.com/embed/', '"')
   end
@@ -218,5 +227,13 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
     return if parts.one?
     parts = parts.second.split(fragment_end)
     parts.first.lstrip.rstrip
+  end
+
+  def get_media(image_url)
+    media = website.medias.where(url: image_url).first_or_initialize
+    return if dry_run && media.new_record?
+    media.save! if media.new_record?
+    media.sync_to_osuny!
+    media
   end
 end

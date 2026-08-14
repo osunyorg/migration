@@ -2,13 +2,15 @@
 #
 # Table name: website_medias
 #
-#  id                           :uuid             not null, primary key
-#  url                          :string
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  osuny_active_storage_blob_id :string
-#  osuny_communication_media_id :string
-#  website_id                   :uuid             not null
+#  id                                  :uuid             not null, primary key
+#  osuny_active_storage_blob_filename  :string
+#  url                                 :string
+#  created_at                          :datetime         not null
+#  updated_at                          :datetime         not null
+#  osuny_active_storage_blob_id        :string
+#  osuny_active_storage_blob_signed_id :string
+#  osuny_communication_media_id        :string
+#  website_id                          :uuid             not null
 #
 # Indexes
 #
@@ -39,7 +41,9 @@ class Website::Media < ApplicationRecord
     osuny_communication_media = response[0]
     update!(
       osuny_communication_media_id: osuny_communication_media[:id],
-      osuny_active_storage_blob_id: osuny_communication_media[:original_blob][:id]
+      osuny_active_storage_blob_id: osuny_communication_media.dig(:original_blob, :id),
+      osuny_active_storage_blob_filename: osuny_communication_media.dig(:original_blob, :filename),
+      osuny_active_storage_blob_signed_id: osuny_communication_media.dig(:original_blob, :signed_id)
     )
   end
 end

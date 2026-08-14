@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_144309) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_14_145831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -165,7 +165,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_144309) do
 
   create_table "website_medias", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.string "osuny_active_storage_blob_filename"
     t.string "osuny_active_storage_blob_id"
+    t.string "osuny_active_storage_blob_signed_id"
     t.string "osuny_communication_media_id"
     t.datetime "updated_at", null: false
     t.string "url"
