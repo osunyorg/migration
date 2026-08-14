@@ -1,12 +1,9 @@
-<div clas="row">
+<table class="table table-hover">
   <% websites.each do |website| %>
-    <div class="col-lg-3 col-md-4 mb-2">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="h4"><%= link_to website, website, class: 'text-decoration-none stretched-link' %></h2>
-          <p class="text-muted"><%= website.url %></p>
-        </div>
-      </div>
-    </div>
+    <tr class="position-relative">
+      <td><%= link_to website, website, class: 'stretched-link text-decoration-none' %></td>
+      <td class="text-muted"><%= website.url %></td>
+      <td class="text-muted"><%= website.pages.count %> <%= Website::Page.model_name.human(count: 2).downcase %></td>
+    </tr>
   <% end %>
-</div>
+</table>
