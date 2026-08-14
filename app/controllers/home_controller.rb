@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @websites = Website.all
+    @websites = Website.ordered
   end
 end

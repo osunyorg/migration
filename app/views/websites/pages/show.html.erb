@@ -1,6 +1,11 @@
 <% content_for :title, @page %>
 
 <p>
+  <strong><%= Website::Page.human_attribute_name(:title) %></strong>
+  <%= @page.title %>
+</p>
+
+<p>
   <strong><%= Website::Page.human_attribute_name(:url) %></strong>
   <%= link_to @page.url, @page.url, target: :_blank %>
 </p>

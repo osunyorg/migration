@@ -21,8 +21,10 @@ fr:
         osuny_iso_code: Code ISO (osuny)
       website/page:
         children: Versions dans d'autres langues
+        crawled_at: Date d'indexation
         group: Groupe
         language: Langue
+        migrated_at: Date de migration
         parent: Page principale
         path: Chemin
         strategy: Stratégie
@@ -55,3 +57,4 @@ fr:
   home:
     breadcrumb: Accueil
     h1: Bienvenue !
+  title: migration
