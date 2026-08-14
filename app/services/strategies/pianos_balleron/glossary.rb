@@ -16,7 +16,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
     log "Titre “#{title}”"
     log "Identifiant de migration ”#{page.migration_identifier}”"
     log "Site osuny ”#{website.osuny_website_id}”"
-    log "Cible osuny ”#{group.osuny_target_id}”"
+    log "Parent ”#{parent_id}”"
     json = json(@page)
     log "Données JSON"
     log JSON.pretty_generate(json)
@@ -55,6 +55,9 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
           featured_image: {
             url: featured_image_url
           },
+          aliases: [
+            { path: page.path }
+          ],
           blocks: [
             {
               migration_identifier: "#{root_page_identifier}-#{page.language.iso_code}-chapter",

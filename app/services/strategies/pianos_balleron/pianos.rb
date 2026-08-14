@@ -53,6 +53,9 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
           featured_image: {
             url: featured_image_url
           },
+          aliases: [
+            { path: page.path }
+          ],
           blocks: blocks
         }
       }
