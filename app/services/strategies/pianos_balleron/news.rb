@@ -2,6 +2,17 @@ class Strategies::PianosBalleron::News < Strategies::Base
 
   FRENCH_MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
+  def hint
+    <<~HTML
+      <p>Dans les réglages JSON, indiquer la catégorie</p>
+      <pre>
+      {
+        "category": "UUID"
+      }
+      </pre>
+    HTML
+  end
+
   def apply_to_page
     list = page.nokogiri.css('.actu li')
     list.reverse.each_with_index do |li, index|
@@ -22,11 +33,13 @@ class Strategies::PianosBalleron::News < Strategies::Base
     title = li.css('b').first.text.lstrip.rstrip
     log title
     migration_identifier = "#{root_page_identifier}-#{index}"
+    category_ids = [setting(:category)]
     text = "<p>#{li.css('p').first.text}</p>"
     featured_image_url = page.website.url + li.css('img').first['src']
     published_at = convert_date(li.css('i').first.text)
     json = {
       migration_identifier: migration_identifier,
+      category_ids: category_ids,
       localizations: {
         "#{page.language.osuny_iso_code}": {
           title: title,
