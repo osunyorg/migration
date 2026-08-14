@@ -19,9 +19,10 @@ fr:
         strategy_klass: Stratégie
         osuny_target_id: Identifiant de la cible dans osuny
       website/page:
+        children: Versions dans d'autres langues
         group: Groupe
         language: Langue
-        parent: Parent
+        parent: Page principale
         path: Chemin
         strategy: Stratégie
         title: Titre
@@ -45,6 +46,7 @@ fr:
     delete: Supprimer
     edit: Modifier
     migrate: Migrer
+    migrate_dry_run: Tester la migration
     open: Ouvrir
     read: Lire
     save: Enregistrer

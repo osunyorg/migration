@@ -41,6 +41,11 @@ class Website < ApplicationRecord
     @camelized ||= to_s.parameterize.underscore.camelize
   end
 
+  def osuny_api_client
+    return if osuny_host.blank? || osuny_api_key.blank?
+    @osuny_api_client ||= OsunyApi::ApiClient.new(osuny_api_configuration)
+  end
+
   def osuny_api_configuration
     return if osuny_host.blank? || osuny_api_key.blank?
     @osuny_api_configuration ||= begin

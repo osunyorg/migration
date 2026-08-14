@@ -1,5 +1,5 @@
 class Strategies::Base
-  attr_reader :website, :osuny_api_instance
+  attr_reader :website, :osuny_api_instance, :group, :page, :dry_run
 
   def initialize(website)
     @website = website
@@ -9,18 +9,21 @@ class Strategies::Base
     raise NoMethodError, "You need to define `osuny_api_instance` in #{self.class.name}."
   end
 
-  def migrate_group!(group)
+  def migrate_group!(group, dry_run: false)
+    @group = group
+    @dry_run = dry_run
     log "Migrate group #{group}"
     log self.to_s
-    @group = group
     apply_to_group
     self
   end
 
-  def migrate_page!(page)
+  def migrate_page!(page, dry_run: false)
+    @page = page
+    @group = page.group
+    @dry_run = dry_run
     log "Migrate page #{page}"
     log self.to_s
-    @page = page
     apply_to_page
     self
   end
@@ -44,8 +47,9 @@ class Strategies::Base
   end
 
   def apply_to_group
-    @group.pages.ordered.each do |page|
-      apply_to_page(page)
+    @group.pages.root.ordered.each do |page|
+      @page = page
+      apply_to_page
     end
   end
 

@@ -14,7 +14,9 @@ class Websites::GroupsController < Websites::ApplicationController
   end
 
   def migrate
-    @migration = @group.migrate!
+    @strategy = @group.strategy
+    @dry_run = params[:dry_run] == "true"
+    @strategy.migrate_group!(@group, dry_run: @dry_run)
     breadcrumb
     add_breadcrumb t('actions.migrate')
   end

@@ -1,14 +1,21 @@
 <% content_for :title, @website %>
 
 <p>
-  <strong>URL: </strong>
+  <strong><%= Website.human_attribute_name(:url) %></strong>
   <%= @website.url %>
 </p>
 
-<p><strong>Languages</strong></p>
-<ul>
+<p><strong><%= Language.model_name.human(count: 2) %></strong></p>
+<ul class="list-unstyled">
   <% @website.languages.each do |language| %>
-    <%= content_tag :li, language, class: (@website.default_language_id == language.id ? 'fw-bold' : nil) %>
+    <li>
+      <%= language %>
+      <% if @website.default_language_id == language.id %>
+        <span class="badge bg-secondary text-dark">
+        <%= Website.human_attribute_name(:default_language) %>
+        </span>
+      <% end %>
+    </li>
   <% end %>
 </ul>
 

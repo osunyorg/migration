@@ -43,10 +43,7 @@ class Website::Page < ApplicationRecord
   scope :root, -> { where(parent_id: nil) }
   scope :search, -> (query) { where("url ILIKE ?", "%#{sanitize_sql_like(query)}%") }
   scope :ordered_by_url, -> { order(:url) }
-
-  def migrate!
-    strategy.migrate_page!(self)
-  end
+  scope :ordered, -> { ordered_by_url }
 
   def migration_identifier
     id
@@ -63,6 +60,10 @@ class Website::Page < ApplicationRecord
 
   def path
     url.sub(website.url, '')
+  end
+  
+  def nokogiri
+    @nokogiri ||= Nokogiri::HTML(html)
   end
 
   def to_s

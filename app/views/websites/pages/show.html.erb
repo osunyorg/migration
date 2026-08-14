@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong><%= Website::Page.human_attribute_name(:language) %></strong>
+  <%= @page.language %>
+</p>
+
+<p>
   <strong><%= Website::Page.human_attribute_name(:group) %></strong>
   <%= link_to @page.group, @page.group if @page.group %>
 </p>
@@ -17,14 +22,14 @@
 
 <% if @page.parent %>
   <p>
-    <strong>Parent:</strong>
+    <strong><%= Website::Page.human_attribute_name(:parent) %></strong>
     <%= link_to @page.parent, @page.parent %>
   </p>
 <% end %>
 
 <% if @page.children.any? %>
-  <p><strong>Children</strong></p>
-  <ul>
+  <p><strong><%= Website::Page.human_attribute_name(:children) %></strong></p>
+  <ul class="list-unstyled">
     <% @page.children.each do |page| %>
       <li><%= link_to page, [page, website_id: page.website_id] %></li>
     <% end %>
@@ -32,7 +37,10 @@
 <% end %>
 
 <div class="mb-5">
-  <%= link_to t('actions.migrate'), [:migrate, @page], class: "btn btn-primary" if @page.strategy %>
+  <% if @page.strategy %>
+    <%= link_to t('actions.migrate_dry_run'), [:migrate, @page, { dry_run: true }], class: "btn btn-primary" %>
+    <%= link_to t('actions.migrate'), [:migrate, @page], class: "btn btn-primary" %>
+  <% end %>
   <%= link_to t('actions.edit'), [:edit, @page], class: "btn btn-primary" %>
   <%= link_to t('actions.delete'), @page, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>

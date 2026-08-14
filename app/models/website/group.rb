@@ -24,10 +24,6 @@ class Website::Group < ApplicationRecord
 
   scope :ordered, -> {order(:name)}
 
-  def migrate!
-    strategy.migrate_group!(self)
-  end
-
   def strategy
     return if strategy_klass.blank? || strategy_class.nil?
     @strategy ||= strategy_class.new(website)

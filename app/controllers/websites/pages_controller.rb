@@ -13,7 +13,9 @@ class Websites::PagesController < Websites::ApplicationController
   end
 
   def migrate
-    @migration = @page.migrate!
+    @strategy = @page.strategy
+    @dry_run = params[:dry_run] == "true"
+    @strategy.migrate_page!(@page, dry_run: @dry_run)
     breadcrumb
     add_breadcrumb t('actions.migrate')
   end
