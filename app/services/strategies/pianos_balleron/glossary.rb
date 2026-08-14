@@ -3,7 +3,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
   def hint
     "<p>Dans les réglages JSON, indiquer la page du lexique</p>
 <pre>{
-  \"parent\": \"d0937d2f-1a96-4621-a476-8accd2db0b72\"
+  \"parent\": \"UUID\"
 }</pre>"
   end
 
