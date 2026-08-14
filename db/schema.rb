@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_14_101836) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_14_140603) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -163,6 +163,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_101836) do
     t.index ["website_id"], name: "index_website_languages_on_website_id"
   end
 
+  create_table "website_medias", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "osuny_active_storage_blob_id"
+    t.string "osuny_communication_media_id"
+    t.datetime "updated_at", null: false
+    t.string "url"
+    t.uuid "website_id", null: false
+    t.index ["website_id"], name: "index_website_medias_on_website_id"
+  end
+
   create_table "website_pages", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "crawled_at"
     t.datetime "created_at", null: false
@@ -197,6 +207,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_14_101836) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "website_groups", "websites"
   add_foreign_key "website_languages", "websites"
+  add_foreign_key "website_medias", "websites"
   add_foreign_key "website_pages", "website_groups", column: "group_id"
   add_foreign_key "website_pages", "website_languages", column: "language_id"
   add_foreign_key "website_pages", "website_pages", column: "parent_id"
