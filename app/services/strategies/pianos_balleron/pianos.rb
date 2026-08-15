@@ -13,12 +13,17 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def apply_to_page
-    if title.empty?
-      log 'Le titre est vide, on passe'
+    if title.blank?
+      log "Le titre est vide, on passe"
+      return
+    end
+    if project_year.blank?
+      log "L'année du projet n'est pas identifiable, on passe"
       return
     end
     log "---"
     log "Titre “#{title}”"
+    log "Année du projet “#{project_year}”"
     json = json(@page)
     log "Données JSON"
     log json
