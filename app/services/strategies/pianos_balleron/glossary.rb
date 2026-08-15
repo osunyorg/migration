@@ -21,7 +21,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
     log "Identifiant de migration ”#{page.migration_identifier}”"
     log "Site osuny ”#{website.osuny_website_id}”"
     log "Parent ”#{parent_id}”"
-    json = json(@page)
+    json = json(page)
     log "Données JSON"
     log json
     return if dry_run
@@ -78,14 +78,11 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
   end
 
   def chapter
-    @chapter ||= begin
-      text = page.nokogiri.css('p').first.to_html
-      text.gsub!('<a href="http://" target="_blank" rel="nofollow"></a>', '')
-      text.gsub!("\r\n", '')
-      text.gsub!('<br><br></p>', '</p>')
-      text.gsub!('<br></p>', '</p>')
-      text
-    end
+    @chapter = page.nokogiri.css('p').first.to_html
+    @chapter.gsub!('<a href="http://" target="_blank" rel="nofollow"></a>', '')
+    @chapter.gsub!("\r\n", '')
+    @chapter.gsub!('<br><br></p>', '</p>')
+    @chapter.gsub!('<br></p>', '</p>')
     @chapter
   end
 
