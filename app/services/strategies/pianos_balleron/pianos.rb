@@ -94,8 +94,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def project_year
-    extract_between('<em><b>Piano restauré en :</b>', '</em>') ||
-    2026
+    extract_between('<em><b>Piano restauré en :</b>', '</em>')
   end
 
   def subtitle
