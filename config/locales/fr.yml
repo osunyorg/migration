@@ -57,6 +57,7 @@ fr:
     delete: Supprimer
     edit: Modifier
     migrate: Migrer
+    migrate_job: Migrer en arrière plan
     migrate_dry_run: Tester la migration
     open: Ouvrir
     read: Lire
@@ -65,4 +66,6 @@ fr:
   home:
     h1: Bienvenue !
     breadcrumb: Accueil
+  notices:
+    migrate_job_launched: La tâche est lancée en arrière-plan
   title: migration

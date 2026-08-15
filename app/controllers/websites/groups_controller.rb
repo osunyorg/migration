@@ -1,5 +1,5 @@
 class Websites::GroupsController < Websites::ApplicationController
-  before_action :set_group, only: %i[ show migrate edit update select_pages do_select_pages destroy ]
+  before_action :set_group, only: %i[ show migrate migrate_job edit update select_pages do_select_pages destroy ]
 
   # GET /websites/1/groups or /websites/1/groups.json
   def index
@@ -20,6 +20,12 @@ class Websites::GroupsController < Websites::ApplicationController
     @strategy.migrate_group!(@group, dry_run: @dry_run)
     breadcrumb
     add_breadcrumb t('actions.migrate')
+  end
+
+  def migrate_job
+    MigrateGroupJob.perform_later(@group)
+    redirect_back fallback_location: website_group_path(@group, { website_id: @group.website_id }),
+                  notice: t('notices.migrate_job_launched')
   end
 
   # GET /websites/1/groups/new

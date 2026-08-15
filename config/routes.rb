@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :groups, controller: "websites/groups" do
       member do
         get :migrate
+        get :migrate_job
         get :select_pages
         post :select_pages, to: "websites/groups#do_select_pages"
       end
