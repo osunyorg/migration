@@ -1,5 +1,5 @@
 class Websites::PagesController < Websites::ApplicationController
-  before_action :set_page, only: %i[ show migrate edit update destroy ]
+  before_action :set_page, only: %i[ show migrate migrate_job edit update destroy ]
 
   # GET /websites/1/pages or /websites/1/pages.json
   def index
@@ -19,6 +19,13 @@ class Websites::PagesController < Websites::ApplicationController
     breadcrumb
     add_breadcrumb t('actions.migrate')
   end
+
+  def migrate_job
+    MigratePageJob.perform_later(@page)
+    redirect_back fallback_location: website_page_path(@page, { website_id: @page.website_id }),
+                  notice: t('notices.migrate_job_launched')
+  end
+
 
   # GET /websites/1/pages/new
   def new

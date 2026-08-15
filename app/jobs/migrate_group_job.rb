@@ -2,6 +2,6 @@ class MigrateGroupJob < ApplicationJob
   queue_as :default
 
   def perform(group)
-    group.migrate!
+    group.strategy.migrate_group!(group)
   end
 end

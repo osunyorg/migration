@@ -14,11 +14,14 @@ Rails.application.routes.draw do
     resources :pages, controller: "websites/pages" do
       member do
         get :migrate
+        get :migrate_job
       end
     end
     resources :languages, controller: "websites/languages"
     resources :medias, controller: "websites/medias", only: [:index, :show]
   end
+
+  mount GoodJob::Engine => 'good_job'
 
   get "up" => "rails/health#show", as: :rails_health_check
   root to: "home#index"

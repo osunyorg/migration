@@ -4,6 +4,7 @@
   <% if @page.strategy %>
     <%= link_to t('actions.migrate_dry_run'), [:migrate, @page, { dry_run: true }], class: "btn btn-primary" %>
     <%= link_to t('actions.migrate'), [:migrate, @page], class: "btn btn-primary" %>
+    <%= link_to t('actions.migrate_job'), [:migrate_job, @page], class: "btn btn-primary" %>
   <% end %>
   <%= link_to t('actions.edit'), [:edit, @page], class: "btn btn-primary" %>
   <%= link_to t('actions.delete'), @page, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
