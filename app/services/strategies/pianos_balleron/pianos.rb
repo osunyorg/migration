@@ -13,18 +13,27 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def apply_to_page
-    if title.blank?
+    page_parser = Strategies::PianosBalleron::Pianos::PageParser.new(
+      page,
+      {
+        root_page_identifier: root_page_identifier,
+        meta_description: meta_description,
+        category_sold: setting(:category_sold),
+        category_selling: setting(:category_selling)
+      }
+    )
+    if page_parser.title.blank?
       log "Le titre est vide, on passe"
       return
     end
-    if project_year.blank?
+    if page_parser.project_year.blank?
       log "L'année du projet n'est pas identifiable, on passe"
       return
     end
     log "---"
-    log "Titre “#{title}”"
-    log "Année du projet “#{project_year}”"
-    json = json(@page)
+    log "Titre “#{page_parser.title}”"
+    log "Année du projet “#{page_parser.project_year}”"
+    json = page_parser.to_json
     log "Données JSON"
     log json
     return if dry_run
@@ -45,8 +54,34 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   def osuny_api
     @osuny_api ||= OsunyApi::CommunicationWebsitePortfolioProjectApi.new(website.osuny_api_client)
   end
+end
 
-  def json(page)
+class Strategies::PianosBalleron::Pianos::PageParser
+  attr_reader :page, :options
+
+  def initialize(page, options)
+    @page = page
+    @options = options
+  end
+
+  # Récupération des options
+  def root_page_identifier
+    options.dig(:root_page_identifier)
+  end
+
+  def meta_description
+    options.dig(:meta_description)
+  end
+
+  def category_selling
+    options.dig(:category_selling)
+  end
+
+  def category_sold
+    options.dig(:category_sold)
+  end
+
+  def to_json
     {
       migration_identifier: root_page_identifier,
       year: project_year,
@@ -94,7 +129,14 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
   end
 
   def project_year
-    extract_between('<em><b>Piano restauré en :</b>', '</em>')
+    return parent_project_year if page.parent.present?
+    extract_between('<em><b>Piano restauré en :</b>', '</em>') ||
+    '2000'
+  end
+
+  def parent_project_year
+    parent_page_parser = Strategies::PianosBalleron::Pianos::PageParser.new(page.parent, options)
+    parent_page_parser.project_year
   end
 
   def subtitle
@@ -127,7 +169,7 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
 
   def category_ids
     [
-      (sold? ? setting(:category_sold) : setting(:category_selling))
+      sold? ? category_sold : category_selling
     ]
   end
 
