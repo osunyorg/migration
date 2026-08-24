@@ -53,9 +53,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
           migration_identifier: "#{root_page_identifier}-#{page.language.iso_code}",
           published: true,
           meta_description: meta_description,
-          featured_image: {
-            url: featured_image_url
-          },
+          featured_image: featured_image_data,
           aliases: [
             { path: page.path }
           ],
@@ -86,8 +84,32 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
     @chapter
   end
 
+  def featured_image_data
+    return unless featured_image_blob_id
+    { blob_id: featured_image_blob_id }
+  end
+
+  def featured_image_blob_id
+    return unless featured_image_url.present?
+    @featured_image_blob_id ||= begin
+      media = get_media(featured_image_url)
+      media ? media.osuny_active_storage_blob_id
+            : "NEW_MEDIA"
+    end
+  end
+
   def featured_image_url
     page.website.url +
     page.nokogiri.css('.produit_background img')[0]['src']
+  end
+
+  # Utilitaires
+
+  def get_media(image_url)
+    media = website.medias.where(url: image_url).first_or_initialize
+    return if dry_run && media.new_record?
+    media.save! if media.new_record?
+    media.sync_to_osuny!
+    media
   end
 end
