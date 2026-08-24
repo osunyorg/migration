@@ -65,6 +65,10 @@ class Strategies::PianosBalleron::Pianos::PageParser
     @options = options
   end
 
+  def website
+    @website ||= page.website
+  end
+
   # Récupération des options
   def root_page_identifier
     options.dig(:root_page_identifier)
@@ -173,7 +177,7 @@ class Strategies::PianosBalleron::Pianos::PageParser
   end
 
   def featured_image_url
-    page.website.url +
+    website.url +
     page.nokogiri.css('.produit_background img')[0]['src']
   end
 
@@ -300,7 +304,7 @@ class Strategies::PianosBalleron::Pianos::PageParser
   end
 
   def get_website_media_from_url(url)
-    media = page.website.medias.where(url: url).first_or_initialize
+    media = website.medias.where(url: url).first_or_initialize
     return if dry_run && media.new_record?
     media.save! if media.new_record?
     media.sync_to_osuny!
