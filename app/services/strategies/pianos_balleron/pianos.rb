@@ -19,7 +19,8 @@ class Strategies::PianosBalleron::Pianos < Strategies::Base
         root_page_identifier: root_page_identifier,
         meta_description: meta_description,
         category_sold: setting(:category_sold),
-        category_selling: setting(:category_selling)
+        category_selling: setting(:category_selling),
+        dry_run: dry_run
       }
     )
     if page_parser.title.blank?
@@ -81,6 +82,10 @@ class Strategies::PianosBalleron::Pianos::PageParser
     options.dig(:category_sold)
   end
 
+  def dry_run
+    options.dig(:dry_run)
+  end
+
   def to_json
     {
       migration_identifier: root_page_identifier,
@@ -94,9 +99,7 @@ class Strategies::PianosBalleron::Pianos::PageParser
           migration_identifier: "#{root_page_identifier}-#{page.language.iso_code}",
           published: true,
           meta_description: meta_description,
-          featured_image: {
-            url: featured_image_url
-          },
+          featured_image: featured_image_data,
           aliases: [
             { path: page.path }
           ],
@@ -153,6 +156,20 @@ class Strategies::PianosBalleron::Pianos::PageParser
   def summary
     description = extract_between '<em><b>Description :</b>', '</em>'
     "<p>#{description}</p>"
+  end
+
+  def featured_image_data
+    return unless featured_image_blob_id
+    { blob_id: featured_image_blob_id }
+  end
+
+  def featured_image_blob_id
+    return unless featured_image_url.present?
+    @featured_image_blob_id ||= begin
+      media = get_website_media_from_url(featured_image_url)
+      media ? media.osuny_active_storage_blob_id
+            : "NEW_MEDIA"
+    end
   end
 
   def featured_image_url
@@ -280,5 +297,13 @@ class Strategies::PianosBalleron::Pianos::PageParser
     return if parts.one?
     parts = parts.second.split(fragment_end)
     parts.first.lstrip.rstrip
+  end
+
+  def get_website_media_from_url(url)
+    media = page.website.medias.where(url: url).first_or_initialize
+    return if dry_run && media.new_record?
+    media.save! if media.new_record?
+    media.sync_to_osuny!
+    media
   end
 end
