@@ -35,7 +35,7 @@ class Strategies::PianosBalleron::News < Strategies::Base
     migration_identifier = "#{root_page_identifier}-#{index}"
     category_ids = [setting(:category)]
     text = "<p>#{li.css('p').first.text}</p>"
-    featured_image_url = page.website.url + li.css('img').first['src']
+    featured_image_data = featured_image_data_for_li(li)
     published_at = convert_date(li.css('i').first.text)
     json = {
       migration_identifier: migration_identifier,
@@ -46,9 +46,7 @@ class Strategies::PianosBalleron::News < Strategies::Base
           migration_identifier: "#{migration_identifier}-#{page.language.iso_code}",
           published: true,
           published_at: published_at,
-          featured_image: {
-            url: featured_image_url
-          },
+          featured_image: featured_image_data,
           blocks: [
             {
               migration_identifier: "#{root_page_identifier}-#{page.language.iso_code}-chapter",
@@ -97,8 +95,16 @@ class Strategies::PianosBalleron::News < Strategies::Base
     month_name = fragments[fragments.count-2].downcase
     month = FRENCH_MONTHS.find_index(month_name)
     day = fragments.count > 2 ? fragments.first.to_i : 1
-    return if month.nil?    
+    return if month.nil?
     Date.new(year, month+1)
+  end
+
+  def featured_image_data_for_li(li)
+    featured_image_url = page.website.url + li.css('img').first['src']
+    return unless featured_image_url.present?
+    media = get_website_media_from_url(featured_image_url)
+    blob_id = media ? media.osuny_active_storage_blob_id : "NEW_MEDIA"
+    { blob_id: blob_id }
   end
 
 end
