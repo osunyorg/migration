@@ -92,7 +92,7 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
   def featured_image_blob_id
     return unless featured_image_url.present?
     @featured_image_blob_id ||= begin
-      media = get_media(featured_image_url)
+      media = get_website_media_from_url(featured_image_url)
       media ? media.osuny_active_storage_blob_id
             : "NEW_MEDIA"
     end
@@ -101,15 +101,5 @@ class Strategies::PianosBalleron::Glossary < Strategies::Base
   def featured_image_url
     page.website.url +
     page.nokogiri.css('.produit_background img')[0]['src']
-  end
-
-  # Utilitaires
-
-  def get_media(image_url)
-    media = website.medias.where(url: image_url).first_or_initialize
-    return if dry_run && media.new_record?
-    media.save! if media.new_record?
-    media.sync_to_osuny!
-    media
   end
 end

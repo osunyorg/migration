@@ -85,4 +85,12 @@ class Strategies::Base
     return if element.nil?
     element['content']
   end
+
+  def get_website_media_from_url(url)
+    media = website.medias.where(url: url).first_or_initialize
+    return if dry_run && media.new_record?
+    media.save! if media.new_record?
+    media.sync_to_osuny!
+    media
+  end
 end

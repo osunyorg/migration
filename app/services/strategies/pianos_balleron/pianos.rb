@@ -227,7 +227,7 @@ class Strategies::PianosBalleron::Pianos::PageParser
     page.nokogiri.css('.produit_fiche img').each do |img|
       image_relative_url = img[:src]
       image_url = website.url + image_relative_url
-      media = get_media(image_url)
+      media = get_website_media_from_url(image_url)
       if media
         image_data = {
           id: media.osuny_active_storage_blob_id,
@@ -280,13 +280,5 @@ class Strategies::PianosBalleron::Pianos::PageParser
     return if parts.one?
     parts = parts.second.split(fragment_end)
     parts.first.lstrip.rstrip
-  end
-
-  def get_media(image_url)
-    media = website.medias.where(url: image_url).first_or_initialize
-    return if dry_run && media.new_record?
-    media.save! if media.new_record?
-    media.sync_to_osuny!
-    media
   end
 end

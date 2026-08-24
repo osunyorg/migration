@@ -24,6 +24,7 @@ class Website::Language < ApplicationRecord
   has_many :pages
 
   validates :name, :iso_code, presence: true
+  # TODO: Unique scoping to website_id (adjust db index)
   validates :iso_code, uniqueness: true
 
   scope :ordered, -> { order(:iso_code) }
