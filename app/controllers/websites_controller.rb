@@ -1,5 +1,5 @@
 class WebsitesController < ApplicationController
-  before_action :set_website, only: %i[ show edit update crawl destroy ]
+  before_action :set_website, only: %i[ show edit update crawl report destroy ]
 
   # GET /websites or /websites.json
   def index
@@ -14,6 +14,11 @@ class WebsitesController < ApplicationController
     @root_pages = @website.pages.root.ordered_by_url
     @medias = @website.medias.ordered_by_url
     breadcrumb
+  end
+
+  def report
+    breadcrumb
+    add_breadcrumb t('actions.report')
   end
 
   # GET /websites/new

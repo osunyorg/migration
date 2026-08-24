@@ -1,10 +1,13 @@
+<%
+hide_group ||= false
+%>
 <table class="table table-hover">
   <thead>
     <tr>
       <th><%= Website::Page.human_attribute_name(:path) %></th>
       <th><%= Website::Page.human_attribute_name(:title) %></th>
       <th><%= Website::Page.human_attribute_name(:language) %></th>
-      <th><%= Website::Page.human_attribute_name(:group) %></th>
+      <% unless hide_group %><th><%= Website::Page.human_attribute_name(:group) %></th><% end %>
       <th><%= Website::Page.human_attribute_name(:crawled_at) %></th>
       <th><%= Website::Page.human_attribute_name(:migrated_at) %></th>
     </tr>
@@ -15,7 +18,7 @@
         <td><%= link_to page, [page, website_id: page.website_id], class: 'text-decoration-none' %></td>
         <td class="small"><%= page.title.truncate(50) %></td>
         <td class="small"><%= link_to page.language, page.language %></td>
-        <td class="small"><%= link_to page.group, page.group if page.group %></td>
+        <% unless hide_group %><td class="small"><%= link_to page.group, page.group if page.group %></td><% end %>
         <td class="small"><%= l page.crawled_at %></td>
         <td class="small"><%= l page.migrated_at if page.migrated_at%></td>
       </tr>

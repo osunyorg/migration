@@ -61,6 +61,7 @@ fr:
     migrate_dry_run: Tester la migration
     open: Ouvrir
     read: Lire
+    report: Afficher le rapport
     save: Enregistrer
     select_pages: Sélectionner les pages
   home:

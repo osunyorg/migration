@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :websites do
     member do
       get :crawl
+      get :report
     end
     resources :groups, controller: "websites/groups" do
       member do

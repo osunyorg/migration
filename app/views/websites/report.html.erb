@@ -1,0 +1,19 @@
+<% content_for :title, @website %>
+
+<p class="form-label"><%= Website.human_attribute_name(:url) %></p>
+<p><%= link_to @website.url, @website.url, target: :_blank %></p>
+
+<p><%= @website.pages.size %> pages référencées</p>
+<p><%= @website.pages.migrated.size %> pages migrées</p>
+
+<%
+@website.groups.ordered.each do |group|
+  pages = group.pages.migrated
+  next if pages.none?
+  %>
+  <h2 class="h4"><%= group %></h2>
+  <p><%= pages.count %> page<%= 's' if pages.many? %> migrée<%= 's' if pages.many? %></p>
+  <%= render "websites/pages/list",
+              pages: pages,
+              hide_group: true %>
+<% end %>

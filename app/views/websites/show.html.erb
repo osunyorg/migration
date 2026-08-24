@@ -2,6 +2,7 @@
 
 <div class="mb-5">
   <%= link_to t('actions.crawl'), [:crawl, @website], class: "btn btn-primary" %>
+  <%= link_to t('actions.report'), [:report, @website], class: "btn btn-primary" %>
   <%= link_to t('actions.edit'), [:edit, @website], class: "btn btn-primary" %>
   <%= link_to t('actions.delete'), @website, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
 </div>
