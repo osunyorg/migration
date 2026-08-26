@@ -14,8 +14,8 @@
 #
 # Indexes
 #
-#  index_website_languages_on_iso_code    (iso_code) UNIQUE
-#  index_website_languages_on_website_id  (website_id)
+#  index_website_languages_on_website_id               (website_id)
+#  index_website_languages_on_website_id_and_iso_code  (website_id,iso_code) UNIQUE
 #
 # Foreign Keys
 #

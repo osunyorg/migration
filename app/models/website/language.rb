@@ -12,8 +12,8 @@
 #
 # Indexes
 #
-#  index_website_languages_on_iso_code    (iso_code) UNIQUE
-#  index_website_languages_on_website_id  (website_id)
+#  index_website_languages_on_website_id               (website_id)
+#  index_website_languages_on_website_id_and_iso_code  (website_id,iso_code) UNIQUE
 #
 # Foreign Keys
 #
@@ -23,9 +23,9 @@ class Website::Language < ApplicationRecord
   belongs_to :website
   has_many :pages
 
-  validates :name, :iso_code, presence: true
+  validates :name, presence: true
   # TODO: Unique scoping to website_id (adjust db index)
-  validates :iso_code, uniqueness: true
+  validates :iso_code, uniqueness: { scope: :website_id }, allow_blank: true
 
   scope :ordered, -> { order(:iso_code) }
 
