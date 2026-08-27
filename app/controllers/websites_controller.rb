@@ -69,9 +69,8 @@ class WebsitesController < ApplicationController
   end
 
   def crawl
-    @crawler = Crawler.new(@website)
-    @crawler.crawl
-    # TODO vue correcte des logs, pas en put, ou mieux, job avec vue des logs
+    CrawlJob.perform_later(@website)
+    redirect_back fallback_location: @website, notice: 'Indexation en cours'
   end
 
   # DELETE /websites/1 or /websites/1.json
