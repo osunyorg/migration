@@ -47,7 +47,7 @@ class Crawler
     )
     page.save
 
-    links = parsed_html.css('a').map { |node| node["href"] }
+    links = parsed_html.css('a').map { |node| node["href"] }.compact_blank
     whitelisted_links = links.select { |link|
       link.start_with?(root_path) || link.start_with?(root_url)
     }
