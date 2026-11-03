@@ -37,7 +37,7 @@ class Crawler
     end
 
     parsed_html = Nokogiri::HTML5(html)
-    title = parsed_html.title.strip
+    title = parsed_html.title.to_s.strip
 
     page.assign_attributes(
       title: title,
