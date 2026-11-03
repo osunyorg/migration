@@ -1,6 +1,7 @@
 <% content_for :title, @page %>
 
 <div class="mb-5">
+  <%= link_to t('actions.crawl'), [:crawl, @page], class: "btn btn-primary" %>
   <% if @page.strategy %>
     <%= link_to t('actions.migrate_dry_run'), [:migrate, @page, { dry_run: true }], class: "btn btn-primary" %>
     <%= link_to t('actions.migrate'), [:migrate, @page], class: "btn btn-primary" %>
@@ -29,7 +30,7 @@
 
   <div class="col-md-3">
     <p class="form-label"><%= Website::Page.human_attribute_name(:crawled_at) %></p>
-    <p><%= l @page.crawled_at %></p>
+    <p><%= l @page.crawled_at if @page.crawled_at %></p>
   </div>
 
   <div class="col-md-3">

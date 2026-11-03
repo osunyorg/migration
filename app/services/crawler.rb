@@ -28,7 +28,7 @@ class Crawler
     end
 
     page = website.pages.where(url: uri.to_s).first_or_initialize
-    return if page.persisted? && page.crawled_at >= started_at
+    return if page.persisted? && page.crawled_at && page.crawled_at >= started_at
 
     puts "Crawling #{uri.to_s} in 1 second."
     sleep 1

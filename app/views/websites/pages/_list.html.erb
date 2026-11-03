@@ -19,8 +19,8 @@ hide_group ||= false
         <td class="small"><%= page.title.truncate(50) %></td>
         <td class="small"><%= link_to page.language, page.language %></td>
         <% unless hide_group %><td class="small"><%= link_to page.group, page.group if page.group %></td><% end %>
-        <td class="small"><%= l page.crawled_at %></td>
-        <td class="small"><%= l page.migrated_at if page.migrated_at%></td>
+        <td class="small"><%= l page.crawled_at if page.crawled_at %></td>
+        <td class="small"><%= l page.migrated_at if page.migrated_at %></td>
       </tr>
     <% end %>
   </tbody>

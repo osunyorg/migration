@@ -1,5 +1,5 @@
 class Websites::PagesController < Websites::ApplicationController
-  before_action :set_page, only: %i[ show migrate migrate_job edit update destroy ]
+  before_action :set_page, only: %i[ show crawl migrate migrate_job edit update destroy ]
 
   # GET /websites/1/pages or /websites/1/pages.json
   def index
