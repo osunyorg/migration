@@ -1,4 +1,4 @@
-class CrawlJob < ApplicationJob
+class CrawlWebsiteJob < ApplicationJob
   queue_as :default
 
   def perform(website)

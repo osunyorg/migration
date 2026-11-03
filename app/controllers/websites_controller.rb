@@ -69,7 +69,7 @@ class WebsitesController < ApplicationController
   end
 
   def crawl
-    CrawlJob.perform_later(@website)
+    CrawlWebsiteJob.perform_later(@website)
     redirect_back fallback_location: @website, notice: 'Indexation en cours'
   end
 
