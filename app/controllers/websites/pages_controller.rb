@@ -26,6 +26,11 @@ class Websites::PagesController < Websites::ApplicationController
                   notice: t('notices.migrate_job_launched')
   end
 
+  def crawl
+    CrawlPageJob.perform_later(@page)
+    redirect_back fallback_location: website_page_path(@page, { website_id: @page.website_id }),
+                  notice: 'Indexation en cours'
+  end
 
   # GET /websites/1/pages/new
   def new

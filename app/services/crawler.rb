@@ -1,14 +1,20 @@
 class Crawler
   attr_reader :website, :started_at
 
-  def initialize(website)
+  def initialize(website, start_page:)
     @website = website
+    if start_page.nil?
+      @start_path = root_path
+    else
+      raise ArgumentError, "start_page must belongs to website" if start_page.website_id != website.id
+      @start_path = start_page.path
+    end
   end
 
   def crawl
     return unless default_language
     @started_at = Time.current
-    crawl_page(root_path)
+    crawl_page(@start_path)
     crawl_translations
   end
 

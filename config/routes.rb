@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       member do
         get :migrate
         get :migrate_job
+        get :crawl
       end
     end
     resources :languages, controller: "websites/languages"
