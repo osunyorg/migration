@@ -28,9 +28,13 @@ class Crawler
     sleep 1
 
     html = uri.open.read
-    language_iso_code = uri.path.split('/')[1]
-    language = default_language.iso_code == language_iso_code ? default_language : website.languages.find_by(iso_code: language_iso_code)
-    return if language.nil?
+    if website.monolingual?
+      language = default_language
+    else
+      language_iso_code = uri.path.split('/')[1]
+      language = default_language.iso_code == language_iso_code ? default_language : website.languages.find_by(iso_code: language_iso_code)
+      return if language.nil?
+    end
 
     parsed_html = Nokogiri::HTML5(html)
     title = parsed_html.title.strip
@@ -43,7 +47,7 @@ class Crawler
     )
     page.save
 
-    links = parsed_body.css('a').map { |node| node["href"] }
+    links = parsed_html.css('a').map { |node| node["href"] }
     whitelisted_links = links.select { |link|
       link.start_with?(root_path) || link.start_with?(root_url)
     }
@@ -55,6 +59,7 @@ class Crawler
   end
 
   def crawl_translations
+    return if website.monolingual?
     languages = website.languages.where.not(id: default_language.id)
     website.pages.where(language: default_language).each do |page|
       languages.each do |language|
@@ -94,6 +99,7 @@ class Crawler
   end
 
   def root_path(language: default_language)
+    return "/" if language.iso_code.blank?
     "/#{language.iso_code}/"
   end
 

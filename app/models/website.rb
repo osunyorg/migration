@@ -58,6 +58,10 @@ class Website < ApplicationRecord
     end
   end
 
+  def monolingual?
+    languages.size == 1
+  end
+
   def to_s
     name
   end
