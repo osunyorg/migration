@@ -70,3 +70,10 @@ fr:
   notices:
     migrate_job_launched: La tâche est lancée en arrière-plan
   title: migration
+  views:
+    pagination:
+      first: "Premier"
+      last: "Dernier"
+      next: "Suivant"
+      previous: "Précédent"
+      truncate: "&hellip;"

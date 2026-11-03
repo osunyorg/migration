@@ -11,8 +11,8 @@ class WebsitesController < ApplicationController
   def show
     @languages = @website.languages.ordered
     @groups = @website.groups.ordered
-    @root_pages = @website.pages.root.ordered_by_url
-    @medias = @website.medias.ordered_by_url
+    @root_pages = @website.pages.root.ordered_by_url.page(params[:pages_page])
+    @medias = @website.medias.ordered_by_url.page(params[:medias_page])
     breadcrumb
   end
 
