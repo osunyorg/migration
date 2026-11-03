@@ -27,7 +27,9 @@ class Crawler
     puts "Crawling #{uri.to_s} in 1 second."
     sleep 1
 
-    html = uri.open.read
+    response = Net::HTTP.get_response(uri)
+    return unless valid_response?(response)
+    html = response.body
     if website.monolingual?
       language = default_language
     else
@@ -79,7 +81,9 @@ class Crawler
     puts "Crawling #{uri.to_s} in 1 second."
     sleep 1
 
-    html = uri.open.read
+    response = Net::HTTP.get_response(uri)
+    return unless valid_response?(response)
+    html = response.body
     parsed_html = Nokogiri::HTML5(html)
     title = parsed_html.title.strip
 
@@ -105,5 +109,10 @@ class Crawler
 
   def root_url(language: default_language)
     URI.join(website.url, root_path(language: language)).to_s
+  end
+
+  def valid_response?(response)
+    response.is_a?(Net::HTTPSuccess) &&
+    response['Content-Type']&.include?('text/html')
   end
 end
