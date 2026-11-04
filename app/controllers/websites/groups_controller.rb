@@ -9,8 +9,10 @@ class Websites::GroupsController < Websites::ApplicationController
 
   # GET /websites/1/groups/1 or /websites/1/groups/1.json
   def show
-    @pages = @group.pages.ordered_by_url
-    @root_pages = @group.pages.root.ordered_by_url
+    all_pages = @group.pages.ordered_by_url
+    @root_pages = all_pages.root
+    @migrated_pages_count = all_pages.migrated.count
+    @pages = all_pages.page(params[:page])
     breadcrumb
   end
 

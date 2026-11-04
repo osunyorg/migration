@@ -15,12 +15,12 @@
 
 <%= link_to t('actions.select_pages'), select_pages_website_group_path(@group, website_id: @website.id), class: "btn btn-primary mb-3" %>
 
-<% if @pages.any? %>
+<% if @pages.total_count > 0 %>
   <h2 class="h4 mt-5"><%= Website::Page.model_name.human(count: 2) %></h2>
   <p>
     <%= @root_pages.size %> pages,
-    <%= @pages.size %> avec les différentes langues,
-    <%= @pages.migrated.size %> migrées
+    <%= @pages.total_count %> avec les différentes langues,
+    <%= @migrated_pages_count %> migrées
   </p>
   <%= render "websites/pages/list", pages: @pages %>
 <% end %>
