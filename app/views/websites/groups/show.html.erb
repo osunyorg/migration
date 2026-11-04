@@ -23,4 +23,5 @@
     <%= @migrated_pages_count %> migrées
   </p>
   <%= render "websites/pages/list", pages: @pages %>
+  <%= paginate @pages, theme: "bootstrap-5" %>
 <% end %>
