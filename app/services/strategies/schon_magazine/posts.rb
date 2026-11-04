@@ -186,6 +186,7 @@ class Strategies::SchonMagazine::Posts < Strategies::Base
     {
       migration_identifier: "#{root_page_identifier}-en-block-#{index}",
       template_kind: "chapter",
+      position: index + 1,
       data: {
         text: elements.map { |element| "<p>#{element.inner_html.strip}</p>" }.join
       }
@@ -196,6 +197,7 @@ class Strategies::SchonMagazine::Posts < Strategies::Base
     {
       migration_identifier: "#{root_page_identifier}-en-block-#{index}",
       template_kind: "gallery",
+      position: index + 1,
       data: {
         layout: "grid",
         elements: elements.map { |element|
