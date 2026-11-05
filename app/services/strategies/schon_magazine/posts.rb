@@ -174,6 +174,8 @@ class Strategies::SchonMagazine::Posts < Strategies::Base
       when 'wp-block-image'
         blocks << gallery_block_from_elements(elements, index)
       else
+        content = elements.map(&:inner_html).map(&:strip).join
+        next if content.blank?
         log "Type de bloc inconnu détecté : #{block_type}"
         raise
       end
