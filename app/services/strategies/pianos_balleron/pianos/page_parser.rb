@@ -104,17 +104,16 @@ class Strategies::PianosBalleron::Pianos::PageParser
   end
 
   def featured_image_data
-    return unless featured_image_blob_id
-    { blob_id: featured_image_blob_id }
+    blob_id = featured_image_blob_id
+    return unless blob_id
+    { blob_id: blob_id }
   end
 
   def featured_image_blob_id
     return unless featured_image_url.present?
-    @featured_image_blob_id ||= begin
-      media = get_website_media_from_url(featured_image_url)
-      media ? media.osuny_active_storage_blob_id
-            : "NEW_MEDIA"
-    end
+    media = get_website_media_from_url(featured_image_url)
+    media ? media.osuny_active_storage_blob_id
+          : "NEW_MEDIA"
   end
 
   def featured_image_url
