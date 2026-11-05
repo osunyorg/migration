@@ -53,6 +53,7 @@ class Website < ApplicationRecord
       config = OsunyApi::Configuration.new
       config.api_key['X-Osuny-Token'] = osuny_api_key
       config.host = osuny_host
+      config.scheme = URI.parse(osuny_host).scheme
       config.base_path = '/api/osuny/v1'
       config
     end
