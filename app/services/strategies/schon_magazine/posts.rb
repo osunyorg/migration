@@ -37,7 +37,12 @@ class Strategies::SchonMagazine::Posts < Strategies::Base
     log "---"
     log "Titre “#{title}”"
     log "Date de publication “#{published_at}”"
-    json = json(page)
+    begin
+      json = json(page)
+    rescue
+      log "Erreur lors de la génération du JSON"
+      return
+    end
     log "Données JSON"
     log json
     return if dry_run
@@ -175,7 +180,8 @@ class Strategies::SchonMagazine::Posts < Strategies::Base
         when 'wp-block-image'
           blocks << gallery_block_from_elements(elements, index)
         else
-          puts "Unknown block type: #{block_type}"
+          log "Type de bloc inconnu détecté : #{block_type}"
+          raise
         end
       end
       blocks
